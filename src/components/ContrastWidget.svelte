@@ -46,11 +46,11 @@
   let passAAA = $derived(ratio >= 7.0);
 
   const presets = [
-    { name: 'Pure White on Void Black', fg: '#FFFFFF', bg: '#040506' },
-    { name: 'Ash on Void Black', fg: '#9C9C9D', bg: '#040506' },
-    { name: 'Mist Button on Ink', fg: '#E6E6E6', bg: '#07080A' },
-    { name: 'Coral Pulse on Void', fg: '#FF6363', bg: '#040506' },
-    { name: 'AI Slop (Low Contrast)', fg: '#54728C', bg: '#1A222B' },
+    { name: 'White on Void', fg: '#FFFFFF', bg: '#040506' },
+    { name: 'Ash on Void', fg: '#9C9C9D', bg: '#040506' },
+    { name: 'Mist on Ink', fg: '#E6E6E6', bg: '#07080A' },
+    { name: 'Coral on Void', fg: '#FF6363', bg: '#040506' },
+    { name: 'AI Slop (Low)', fg: '#54728C', bg: '#1A222B' },
   ];
 
   function applyPreset(p: { fg: string; bg: string }) {
@@ -157,7 +157,7 @@
           <div class="result-tile">
             <span class="res-label font-mono">NORMAL TEXT (&ge; 4.5:1)</span>
             <span class="status-badge font-mono" class:pass={passNormal} class:fail={!passNormal}>
-              {passNormal ? 'PASS · WCAG AA' : 'FAIL'}
+              {passNormal ? 'PASS · AA' : 'FAIL'}
             </span>
           </div>
 
@@ -184,11 +184,13 @@
   .contrast-section {
     padding-top: var(--spacing-80);
     padding-bottom: var(--spacing-80);
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .section-header {
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: 36px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -196,13 +198,13 @@
   }
 
   .section-title {
-    font-size: 32px;
+    font-size: clamp(24px, 5.5vw, 32px);
     font-weight: 500;
     color: var(--color-pure-white);
   }
 
   .section-desc {
-    font-size: 16px;
+    font-size: clamp(14px, 2.5vw, 16px);
     color: var(--color-ash);
     max-width: 560px;
   }
@@ -210,49 +212,56 @@
   .widget-card {
     background-color: var(--color-ink);
     overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .widget-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 20px;
+    padding: 12px 18px;
     border-bottom: 1px solid var(--color-border);
     background-color: #050608;
+    gap: 8px;
+    flex-wrap: wrap;
   }
 
   .widget-title-group {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 12px;
+    gap: 8px;
+    font-size: 11.5px;
   }
 
   .text-sm {
-    font-size: 11px;
+    font-size: 10.5px;
   }
 
   .widget-body {
-    padding: 28px;
+    padding: 24px;
     display: grid;
-    grid-template-columns: 1fr 1.3fr;
-    gap: 32px;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 24px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .controls-column {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
+    min-width: 0;
   }
 
   .input-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
   }
 
   .input-label {
-    font-size: 11px;
+    font-size: 10.5px;
     color: var(--color-smoke);
     letter-spacing: 0.8px;
   }
@@ -261,19 +270,22 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .color-swatch-input {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-inputs);
     background: none;
     cursor: pointer;
     padding: 0;
+    flex-shrink: 0;
   }
 
   .color-swatch-input::-webkit-color-swatch-wrapper {
@@ -287,20 +299,21 @@
 
   .text-input {
     flex-grow: 1;
-    font-size: 13.5px;
+    font-size: 13px;
     text-transform: uppercase;
+    min-width: 0;
   }
 
   .presets-wrap {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding-top: 12px;
+    gap: 8px;
+    padding-top: 10px;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
   }
 
   .presets-label {
-    font-size: 11px;
+    font-size: 10.5px;
     color: var(--color-smoke);
     letter-spacing: 0.8px;
   }
@@ -308,7 +321,7 @@
   .presets-pills {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
   }
 
   .preset-btn {
@@ -317,7 +330,7 @@
     border: 1px solid var(--color-border);
     border-radius: 6px;
     padding: 4px 8px;
-    font-size: 11px;
+    font-size: 10.5px;
     cursor: pointer;
     transition: all 0.15s ease;
   }
@@ -331,67 +344,79 @@
   .preview-column {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 16px;
+    min-width: 0;
   }
 
   .live-preview-box {
-    padding: 24px;
+    padding: 18px;
     border-radius: var(--radius-cards);
     border: 1px solid var(--color-border);
-    min-height: 140px;
+    min-height: 120px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
     transition: background-color 0.2s ease, color 0.2s ease;
+    box-sizing: border-box;
   }
 
   .preview-tag {
-    font-size: 10px;
+    font-size: 9.5px;
     letter-spacing: 0.8px;
     opacity: 0.7;
   }
 
   .preview-headline {
-    font-size: 20px;
+    font-size: clamp(16px, 3.5vw, 19px);
     font-weight: 500;
   }
 
   .preview-body {
-    font-size: 14px;
+    font-size: 13px;
     opacity: 0.9;
+    line-height: 1.4;
   }
 
   .results-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .result-tile {
     background-color: var(--color-obsidian);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-inputs);
-    padding: 12px 14px;
+    padding: 10px 12px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
+    min-width: 0;
   }
 
   .res-label {
-    font-size: 10.5px;
+    font-size: 9.5px;
     color: var(--color-smoke);
     letter-spacing: 0.6px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .res-value {
-    font-size: 20px;
+    font-size: clamp(17px, 3.5vw, 20px);
     font-weight: 600;
   }
 
   .status-badge {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .status-badge.pass {
@@ -405,6 +430,13 @@
   @media (max-width: 860px) {
     .widget-body {
       grid-template-columns: 1fr;
+      padding: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .results-grid {
+      grid-template-columns: 1fr 1fr;
     }
   }
 </style>

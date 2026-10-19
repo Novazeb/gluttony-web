@@ -25,7 +25,7 @@
     <div class="eyebrow-container">
       <div class="eyebrow-pill">
         <span class="pulse-dot"></span>
-        <span class="eyebrow-text font-mono">GLUTTONY v2.2.0 · AUTONOMOUS AGENT PROTOCOL</span>
+        <span class="eyebrow-text font-mono">GLUTTONY v2.2.0 · AGENT PROTOCOL</span>
       </div>
     </div>
 
@@ -61,16 +61,18 @@
 
     <!-- Command strip preview -->
     <div class="terminal-command-well" onclick={copyCommand} role="button" tabindex="0" onkeydown={(e) => e.key === 'Enter' && copyCommand()}>
-      <span class="cmd-prompt font-mono">$</span>
-      <span class="cmd-text font-mono">{installCmd}</span>
-      <span class="cmd-badge font-mono">{copyState === 'copied' ? 'COPIED' : 'CLICK TO COPY'}</span>
+      <div class="cmd-content-left">
+        <span class="cmd-prompt font-mono">$</span>
+        <span class="cmd-text font-mono">{installCmd}</span>
+      </div>
+      <span class="cmd-badge font-mono">{copyState === 'copied' ? 'COPIED' : 'COPY'}</span>
     </div>
 
     <!-- Raycast Footer Meta Strip -->
     <div class="hero-meta-strip font-mono">
       <span>v2.2.0</span>
       <span class="divider">|</span>
-      <span>YAGNI by Default</span>
+      <span>YAGNI First</span>
       <span class="divider">|</span>
       <span>Preserve Contracts</span>
       <span class="divider">|</span>
@@ -84,13 +86,15 @@
 <style>
   .hero-section {
     position: relative;
-    min-height: 85vh;
+    min-height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding-top: 140px;
-    padding-bottom: 80px;
+    padding-bottom: 70px;
     overflow: hidden;
+    width: 100%;
+    max-width: 100vw;
   }
 
   /* Atmospheric red/blue geometric artwork */
@@ -100,6 +104,7 @@
     pointer-events: none;
     z-index: 0;
     overflow: hidden;
+    max-width: 100vw;
   }
 
   .glow-blue {
@@ -108,6 +113,7 @@
     left: 50%;
     transform: translate(-50%, -40%);
     width: 800px;
+    max-width: 100vw;
     height: 480px;
     background: radial-gradient(circle, rgba(4, 63, 150, 0.45) 0%, rgba(6, 18, 37, 0.15) 60%, rgba(4, 5, 6, 0) 80%);
     filter: blur(50px);
@@ -116,9 +122,10 @@
   .glow-coral-diagonal {
     position: absolute;
     top: 30%;
-    left: 45%;
+    left: 50%;
     transform: translate(-50%, -50%) rotate(-25deg);
     width: 650px;
+    max-width: 120vw;
     height: 120px;
     background: linear-gradient(90deg, transparent 0%, rgba(255, 99, 99, 0.32) 40%, rgba(255, 99, 99, 0.15) 75%, transparent 100%);
     filter: blur(48px);
@@ -127,8 +134,10 @@
   .glow-coral-accent {
     position: absolute;
     top: 38%;
-    left: 55%;
+    left: 50%;
+    transform: translateX(-50%);
     width: 280px;
+    max-width: 80vw;
     height: 90px;
     background: rgba(255, 99, 99, 0.22);
     filter: blur(60px);
@@ -151,10 +160,12 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    width: 100%;
   }
 
   .eyebrow-container {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
+    max-width: 100%;
   }
 
   .eyebrow-pill {
@@ -166,6 +177,7 @@
     padding: 4px 12px;
     border-radius: var(--radius-pills);
     box-shadow: var(--shadow-key-subtle);
+    max-width: 90vw;
   }
 
   .pulse-dot {
@@ -174,32 +186,36 @@
     border-radius: 50%;
     background-color: var(--color-coral-pulse);
     box-shadow: 0 0 8px var(--color-coral-pulse);
+    flex-shrink: 0;
   }
 
   .eyebrow-text {
     font-size: 11px;
     color: var(--color-ash);
     letter-spacing: 0.8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
-  /* Raycast Signature Headline: 56px Inter regular weight 400 with letter-spacing */
+  /* Raycast Signature Headline: 56px Inter regular weight 400 */
   .hero-headline {
-    font-size: 56px;
+    font-size: clamp(30px, 6.5vw, 56px);
     font-weight: 400;
     line-height: 1.15;
     letter-spacing: 0.22px;
     color: var(--color-pure-white);
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     max-width: 900px;
   }
 
   .hero-subheadline {
-    font-size: 16px;
+    font-size: clamp(14px, 2.5vw, 16px);
     font-weight: 400;
     line-height: 1.6;
     color: var(--color-ash);
     max-width: 580px;
-    margin-bottom: 36px;
+    margin-bottom: 32px;
   }
 
   .hero-actions {
@@ -207,25 +223,40 @@
     align-items: center;
     gap: 12px;
     margin-bottom: 24px;
+    width: 100%;
+    justify-content: center;
   }
 
   .hero-btn {
     padding: 10px 18px;
-    font-size: 14px;
+    font-size: 13.5px;
   }
 
   .terminal-command-well {
     display: inline-flex;
     align-items: center;
+    justify-content: space-between;
     gap: 12px;
     background-color: var(--color-obsidian);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-inputs);
-    padding: 10px 16px;
+    padding: 10px 14px;
     cursor: pointer;
     margin-bottom: 32px;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset;
     transition: border-color 0.15s ease, background-color 0.15s ease;
+    width: 100%;
+    max-width: 440px;
+  }
+
+  .cmd-content-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    min-width: 0;
   }
 
   .terminal-command-well:hover {
@@ -236,11 +267,15 @@
   .cmd-prompt {
     color: var(--color-coral-pulse);
     font-size: 13px;
+    flex-shrink: 0;
   }
 
   .cmd-text {
     color: var(--color-pure-white);
-    font-size: 13px;
+    font-size: 12.5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .cmd-badge {
@@ -249,6 +284,7 @@
     letter-spacing: 0.5px;
     padding-left: 8px;
     border-left: 1px solid var(--color-slate);
+    flex-shrink: 0;
   }
 
   .hero-meta-strip {
@@ -256,8 +292,8 @@
     align-items: center;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 12px;
-    font-size: 12px;
+    gap: 10px;
+    font-size: 11.5px;
     color: var(--color-smoke);
   }
 
@@ -266,23 +302,23 @@
   }
 
   @media (max-width: 768px) {
-    .hero-headline {
-      font-size: 36px;
+    .hero-section {
+      padding-top: 100px;
+      padding-bottom: 40px;
     }
 
     .hero-actions {
       flex-direction: column;
-      width: 100%;
+      max-width: 320px;
     }
 
     .hero-btn {
       width: 100%;
     }
 
-    .terminal-command-well {
-      width: 100%;
-      justify-content: center;
-      flex-wrap: wrap;
+    .hero-meta-strip {
+      font-size: 10.5px;
+      gap: 6px;
     }
   }
 </style>

@@ -89,7 +89,10 @@
   <!-- Scenario Comparison Table -->
   <div class="table-container key-card">
     <div class="table-header">
-      <span class="font-mono text-sm text-ash">SCENARIO BREAKDOWN</span>
+      <div class="table-header-left">
+        <span class="font-mono text-sm text-ash">SCENARIO BREAKDOWN</span>
+      </div>
+      <span class="scroll-hint font-mono text-smoke">← SCROLL TO VIEW ALL →</span>
     </div>
 
     <div class="table-scroll">
@@ -123,11 +126,13 @@
   .benchmark-section {
     padding-top: var(--spacing-80);
     padding-bottom: var(--spacing-80);
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .section-header {
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: 36px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -135,13 +140,13 @@
   }
 
   .section-title {
-    font-size: 32px;
+    font-size: clamp(24px, 5.5vw, 32px);
     font-weight: 500;
     color: var(--color-pure-white);
   }
 
   .section-desc {
-    font-size: 16px;
+    font-size: clamp(14px, 2.5vw, 16px);
     color: var(--color-ash);
     max-width: 560px;
   }
@@ -149,71 +154,80 @@
   .metrics-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 32px;
+    gap: 14px;
+    margin-bottom: 28px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .metric-card {
-    padding: 24px;
+    padding: 20px 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 6px;
+    gap: 4px;
     background-color: var(--color-ink);
+    box-sizing: border-box;
+    min-width: 0;
   }
 
   .metric-value {
-    font-size: 32px;
+    font-size: clamp(22px, 4.5vw, 30px);
     font-weight: 600;
     color: var(--color-pure-white);
     letter-spacing: -0.5px;
   }
 
   .metric-label {
-    font-size: 13.5px;
+    font-size: 13px;
     color: var(--color-ash);
     font-weight: 500;
   }
 
   .metric-sub {
-    font-size: 11px;
+    font-size: 10.5px;
     color: var(--color-coral-pulse);
     margin-top: 2px;
   }
 
   /* Infographic Image Card */
   .infographic-wrapper {
-    margin-bottom: 32px;
+    margin-bottom: 28px;
     background-color: var(--color-ink);
     overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .infographic-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 20px;
+    padding: 12px 18px;
     border-bottom: 1px solid var(--color-border);
     background-color: #050608;
+    gap: 8px;
+    flex-wrap: wrap;
   }
 
   .infographic-title-wrap {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 12px;
+    gap: 8px;
+    font-size: 11.5px;
   }
 
   .text-sm {
-    font-size: 11px;
+    font-size: 10.5px;
   }
 
   .image-container {
-    padding: 16px;
+    padding: 12px;
     background-color: var(--color-void-black);
     display: flex;
     justify-content: center;
+    overflow: hidden;
   }
 
   .benchmark-img {
@@ -228,62 +242,81 @@
   .table-container {
     background-color: var(--color-ink);
     overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .table-header {
-    padding: 14px 20px;
+    padding: 12px 18px;
     border-bottom: 1px solid var(--color-border);
     background-color: #050608;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .scroll-hint {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    display: none;
   }
 
   .table-scroll {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .benchmark-table {
     width: 100%;
+    min-width: 620px;
     border-collapse: collapse;
-    font-size: 13.5px;
+    font-size: 13px;
     text-align: left;
   }
 
   .benchmark-table th {
-    padding: 14px 20px;
-    font-size: 11px;
+    padding: 12px 16px;
+    font-size: 10.5px;
     color: var(--color-smoke);
     border-bottom: 1px solid var(--color-border);
     letter-spacing: 0.6px;
+    white-space: nowrap;
   }
 
   .benchmark-table td {
-    padding: 16px 20px;
+    padding: 14px 16px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   }
 
   .scenario-cell {
-    font-size: 12.5px;
+    font-size: 12px;
     color: var(--color-ash);
+    white-space: nowrap;
   }
 
   .raw-cell {
-    font-size: 13px;
-    line-height: 1.5;
+    font-size: 12.5px;
+    line-height: 1.45;
   }
 
   .gluttony-cell {
-    font-size: 13px;
-    line-height: 1.5;
+    font-size: 12.5px;
+    line-height: 1.45;
   }
 
   .diamond-dot {
     color: var(--color-coral-pulse);
-    font-size: 9px;
+    font-size: 8px;
     margin-right: 4px;
   }
 
   .delta-cell {
-    font-size: 12px;
+    font-size: 11.5px;
     font-weight: 500;
+    white-space: nowrap;
   }
 
   @media (max-width: 900px) {
@@ -292,9 +325,17 @@
     }
   }
 
-  @media (max-width: 540px) {
-    .metrics-grid {
-      grid-template-columns: 1fr;
+  @media (max-width: 640px) {
+    .scroll-hint {
+      display: inline-block;
+    }
+
+    .metric-card {
+      padding: 14px 10px;
+    }
+
+    .metric-label {
+      font-size: 12px;
     }
   }
 </style>

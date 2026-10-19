@@ -119,11 +119,13 @@
   .platforms-section {
     padding-top: var(--spacing-80);
     padding-bottom: var(--spacing-80);
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .section-header {
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: 36px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -131,13 +133,13 @@
   }
 
   .section-title {
-    font-size: 32px;
+    font-size: clamp(24px, 5.5vw, 32px);
     font-weight: 500;
     color: var(--color-pure-white);
   }
 
   .section-desc {
-    font-size: 16px;
+    font-size: clamp(14px, 2.5vw, 16px);
     color: var(--color-ash);
     max-width: 560px;
   }
@@ -147,16 +149,20 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 16px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .platform-tile {
-    padding: 20px;
+    padding: 18px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     background-color: var(--color-ink);
     cursor: pointer;
     transition: transform 0.15s ease, border-color 0.15s ease;
+    box-sizing: border-box;
+    min-width: 0;
   }
 
   .platform-tile:hover {
@@ -168,25 +174,26 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+    gap: 8px;
   }
 
   .platform-name {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
     color: var(--color-pure-white);
   }
 
   .platform-category {
-    font-size: 11px;
+    font-size: 10.5px;
     color: var(--color-smoke);
     display: block;
     margin-top: 2px;
   }
 
   .platform-desc {
-    font-size: 13.5px;
+    font-size: 13px;
     color: var(--color-ash);
-    line-height: 1.5;
+    line-height: 1.45;
   }
 
   .tile-install {
@@ -198,20 +205,23 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 8px;
     font-size: 11px;
     color: var(--color-mist);
+    min-width: 0;
   }
 
   .install-text {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: 80%;
+    max-width: calc(100% - 40px);
   }
 
   .copy-hint {
-    font-size: 9.5px;
+    font-size: 9px;
     color: var(--color-smoke);
+    flex-shrink: 0;
   }
 
   @media (max-width: 960px) {
@@ -223,6 +233,10 @@
   @media (max-width: 600px) {
     .platforms-grid {
       grid-template-columns: 1fr;
+    }
+
+    .platform-tile {
+      padding: 16px;
     }
   }
 </style>

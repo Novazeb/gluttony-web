@@ -59,29 +59,32 @@
 
 <style>
   .site-footer {
-    padding-top: 60px;
-    padding-bottom: 60px;
+    padding-top: 48px;
+    padding-bottom: 48px;
     border-top: 1px solid var(--color-border);
     background-color: #030405;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .footer-container {
     display: flex;
     flex-direction: column;
-    gap: 36px;
+    gap: 28px;
+    box-sizing: border-box;
   }
 
   .footer-top {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 32px;
+    gap: 24px;
   }
 
   .footer-brand {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
     max-width: 440px;
   }
 
@@ -97,13 +100,13 @@
   }
 
   .brand-text {
-    font-size: 15px;
+    font-size: 14.5px;
     font-weight: 500;
     color: var(--color-pure-white);
   }
 
   .brand-desc {
-    font-size: 13.5px;
+    font-size: 13px;
     color: var(--color-smoke);
     line-height: 1.5;
   }
@@ -111,11 +114,11 @@
   .footer-links-group {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 16px;
   }
 
   .footer-link {
-    font-size: 13px;
+    font-size: 12.5px;
     color: var(--color-ash);
     text-decoration: none;
     transition: color 0.15s ease;
@@ -136,9 +139,10 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 12px;
-    font-size: 12px;
+    gap: 10px;
+    font-size: 11px;
     color: var(--color-smoke);
+    text-align: center;
   }
 
   .pipe {
@@ -157,6 +161,11 @@
   @media (max-width: 768px) {
     .footer-top {
       flex-direction: column;
+      gap: 20px;
+    }
+
+    .footer-links-group {
+      gap: 12px;
     }
   }
 </style>

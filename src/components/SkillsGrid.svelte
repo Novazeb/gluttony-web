@@ -34,7 +34,7 @@
       name: 'gluttony-audit',
       version: 'v2.2.0',
       badge: 'PASSIVE SCANNER',
-      title: 'Bloat Hunter & Redundant Dependency Auditor',
+      title: 'Bloat Hunter & Dependency Auditor',
       desc: 'Strictly read-only codebase auditor. Scans workspace or modified diffs for YAGNI violations, single-implementor abstractions, unneeded third-party libraries (lodash, moment, axios), and AI comment slop without modifying a single file.',
       highlights: [
         'Strictly read-only: zero mutations to source files',
@@ -122,7 +122,7 @@
         <!-- Footer command strip -->
         <div class="card-footer">
           <button onclick={() => copyCmd(skill.cmd, idx)} class="cmd-pill-strip">
-            <span class="font-mono">{skill.cmd}</span>
+            <span class="cmd-strip-text font-mono">{skill.cmd}</span>
             <span class="copy-tag font-mono">{copiedIdx === idx ? 'COPIED' : 'COPY'}</span>
           </button>
         </div>
@@ -135,11 +135,13 @@
   .skills-section {
     padding-top: var(--spacing-80);
     padding-bottom: var(--spacing-80);
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .section-header {
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: 36px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -147,13 +149,13 @@
   }
 
   .section-title {
-    font-size: 32px;
+    font-size: clamp(24px, 5.5vw, 32px);
     font-weight: 500;
     color: var(--color-pure-white);
   }
 
   .section-desc {
-    font-size: 16px;
+    font-size: clamp(14px, 2.5vw, 16px);
     color: var(--color-ash);
     max-width: 560px;
   }
@@ -161,27 +163,32 @@
   .skills-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .skill-card {
-    padding: 28px;
+    padding: 24px;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 16px;
     background-color: var(--color-ink);
+    box-sizing: border-box;
+    min-width: 0;
   }
 
   .card-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 8px;
   }
 
   /* Raycast 99999px Circular Icon Container */
   .icon-circle {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     border-radius: var(--radius-circle);
     background-color: var(--color-obsidian);
     border: 1px solid var(--color-border);
@@ -190,12 +197,14 @@
     justify-content: center;
     color: var(--color-mist);
     box-shadow: rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset;
+    flex-shrink: 0;
   }
 
   .card-badges {
     display: flex;
     align-items: center;
     gap: 8px;
+    flex-shrink: 0;
   }
 
   .badge-version {
@@ -207,25 +216,28 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
+    min-width: 0;
   }
 
   .skill-name {
-    font-size: 20px;
+    font-size: clamp(17px, 3.8vw, 20px);
     font-weight: 500;
     color: var(--color-pure-white);
     letter-spacing: -0.2px;
+    word-break: break-word;
   }
 
   .skill-title {
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 400;
     color: var(--color-coral-pulse);
+    line-height: 1.4;
   }
 
   .skill-desc {
-    font-size: 14.5px;
+    font-size: 13.5px;
     color: var(--color-ash);
-    line-height: 1.6;
+    line-height: 1.55;
   }
 
   .highlights-list {
@@ -241,18 +253,21 @@
     display: flex;
     align-items: baseline;
     gap: 8px;
-    font-size: 13px;
+    font-size: 12.5px;
     color: #b5b6b8;
+    line-height: 1.4;
   }
 
   .check-bullet {
     color: var(--color-coral-pulse);
     font-weight: bold;
+    flex-shrink: 0;
   }
 
   .card-footer {
     margin-top: auto;
     padding-top: 8px;
+    width: 100%;
   }
 
   .cmd-pill-strip {
@@ -260,15 +275,25 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 8px;
     background-color: var(--color-obsidian);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-inputs);
     padding: 8px 12px;
     color: var(--color-pure-white);
-    font-size: 12.5px;
+    font-size: 12px;
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset;
     transition: all 0.15s ease;
+    box-sizing: border-box;
+    min-width: 0;
+  }
+
+  .cmd-strip-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
   }
 
   .cmd-pill-strip:hover {
@@ -277,14 +302,19 @@
   }
 
   .copy-tag {
-    font-size: 10px;
+    font-size: 9.5px;
     color: var(--color-smoke);
     letter-spacing: 0.5px;
+    flex-shrink: 0;
   }
 
   @media (max-width: 860px) {
     .skills-grid {
       grid-template-columns: 1fr;
+    }
+
+    .skill-card {
+      padding: 18px;
     }
   }
 </style>

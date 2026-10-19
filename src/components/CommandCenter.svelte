@@ -132,7 +132,7 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
         <span class="dot expand"></span>
       </div>
       <div class="titlebar-center">
-        <span class="window-title font-mono">gluttony-cockpit --session=active</span>
+        <span class="window-title font-mono">gluttony-cockpit</span>
       </div>
       <div class="titlebar-actions">
         <span class="badge-tag">{commandData[activeTab].badge}</span>
@@ -160,21 +160,21 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
             class:active={activeTab === 'refactor'}
             onclick={() => (activeTab = 'refactor')}
           >
-            <span class="cmd-pill-slash">/</span>gluttony-refactor
+            <span class="cmd-pill-slash">/</span>refactor
           </button>
           <button
             class="cmd-pill"
             class:active={activeTab === 'audit'}
             onclick={() => (activeTab = 'audit')}
           >
-            <span class="cmd-pill-slash">/</span>gluttony-audit
+            <span class="cmd-pill-slash">/</span>audit
           </button>
           <button
             class="cmd-pill"
             class:active={activeTab === 'ui'}
             onclick={() => (activeTab = 'ui')}
           >
-            <span class="cmd-pill-slash">/</span>gluttony-ui
+            <span class="cmd-pill-slash">/</span>ui
           </button>
         </div>
 
@@ -228,11 +228,13 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
   .cockpit-section {
     padding-top: var(--spacing-80);
     padding-bottom: var(--spacing-80);
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .section-header {
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: 36px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -240,13 +242,13 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
   }
 
   .section-title {
-    font-size: 32px;
+    font-size: clamp(24px, 5.5vw, 32px);
     font-weight: 500;
     color: var(--color-pure-white);
   }
 
   .section-desc {
-    font-size: 16px;
+    font-size: clamp(14px, 2.5vw, 16px);
     color: var(--color-ash);
     max-width: 560px;
   }
@@ -255,26 +257,30 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
   .cockpit-window {
     overflow: hidden;
     background-color: var(--color-ink);
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .window-titlebar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 18px;
+    padding: 10px 16px;
     border-bottom: 1px solid var(--color-border);
     background-color: #050608;
+    gap: 8px;
   }
 
   .traffic-lights {
     display: flex;
     align-items: center;
     gap: 6px;
+    flex-shrink: 0;
   }
 
   .dot {
-    width: 10px;
-    height: 10px;
+    width: 9px;
+    height: 9px;
     border-radius: 50%;
   }
 
@@ -282,28 +288,47 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
   .dot.minimize { background-color: #ffbd2e; }
   .dot.expand { background-color: #27c93f; }
 
+  .titlebar-center {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+
   .window-title {
     font-size: 11px;
     color: var(--color-smoke);
     letter-spacing: 0.5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .titlebar-actions {
+    flex-shrink: 0;
   }
 
   /* Raycast command search bar */
   .command-bar-wrapper {
-    padding: 16px 20px;
+    padding: 12px 16px;
     border-bottom: 1px solid var(--color-border);
     background-color: var(--color-void-black);
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .command-search-bar {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     background-color: var(--color-obsidian);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-inputs);
-    padding: 6px 12px;
+    padding: 6px 10px;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px 0px inset;
+    width: 100%;
+    box-sizing: border-box;
+    min-width: 0;
   }
 
   .search-icon {
@@ -314,9 +339,16 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
   .command-pills {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     flex-grow: 1;
+    min-width: 0;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .command-pills::-webkit-scrollbar {
+    display: none;
   }
 
   .cmd-pill {
@@ -324,12 +356,13 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
     border: 1px solid transparent;
     color: var(--color-ash);
     font-family: var(--font-mono);
-    font-size: 12px;
-    padding: 5px 10px;
+    font-size: 11.5px;
+    padding: 4px 8px;
     border-radius: 6px;
     cursor: pointer;
     white-space: nowrap;
     transition: all 0.15s ease;
+    flex-shrink: 0;
   }
 
   .cmd-pill:hover {
@@ -350,31 +383,37 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
   }
 
   .cmd-copy-btn {
-    padding: 6px 12px;
-    font-size: 12px;
+    padding: 4px 10px;
+    font-size: 11.5px;
+    flex-shrink: 0;
+    min-height: 32px;
   }
 
   /* Body panes */
   .cockpit-body {
     display: grid;
     grid-template-columns: 1fr 1.25fr;
-    min-height: 400px;
+    min-height: 380px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .cockpit-pane {
-    padding: 24px;
+    padding: 20px;
+    box-sizing: border-box;
+    min-width: 0;
   }
 
   .info-pane {
     border-right: 1px solid var(--color-border);
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
     background-color: var(--color-ink);
   }
 
   .pane-tag {
-    font-size: 11px;
+    font-size: 10.5px;
     color: var(--color-coral-pulse);
     letter-spacing: 0.8px;
     display: block;
@@ -382,26 +421,27 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
   }
 
   .pane-title {
-    font-size: 20px;
+    font-size: clamp(16px, 3.5vw, 19px);
     font-weight: 500;
     color: var(--color-pure-white);
     margin-bottom: 8px;
+    word-break: break-word;
   }
 
   .pane-desc {
-    font-size: 14px;
+    font-size: 13.5px;
     color: var(--color-ash);
-    line-height: 1.6;
+    line-height: 1.55;
   }
 
   .pane-rules-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
   }
 
   .list-label {
-    font-size: 11px;
+    font-size: 10.5px;
     color: var(--color-smoke);
     letter-spacing: 0.8px;
     margin-bottom: 2px;
@@ -411,14 +451,16 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
     display: flex;
     align-items: flex-start;
     gap: 8px;
-    font-size: 13px;
+    font-size: 12.5px;
     color: var(--color-pure-white);
+    line-height: 1.4;
   }
 
   .rule-diamond {
     color: var(--color-coral-pulse);
-    font-size: 10px;
+    font-size: 9px;
     margin-top: 3px;
+    flex-shrink: 0;
   }
 
   /* Terminal pane */
@@ -426,6 +468,7 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
     background-color: #050608;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
   }
 
   .terminal-header {
@@ -433,34 +476,41 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
     align-items: center;
     justify-content: space-between;
     font-size: 11px;
-    padding-bottom: 12px;
+    padding-bottom: 10px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    margin-bottom: 16px;
+    margin-bottom: 14px;
+    gap: 8px;
   }
 
   .terminal-tab {
     color: var(--color-ash);
     letter-spacing: 0.5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .terminal-status {
     font-size: 10px;
     letter-spacing: 0.5px;
+    flex-shrink: 0;
   }
 
   .terminal-content {
-    font-size: 12.5px;
-    line-height: 1.6;
+    font-size: 12px;
+    line-height: 1.55;
     color: var(--color-mist);
     overflow-x: auto;
+    max-width: 100%;
   }
 
   .term-line {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
 
   .term-prompt {
     color: var(--color-pure-white);
+    word-break: break-all;
   }
 
   .term-user {
@@ -474,7 +524,7 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
   .term-divider {
     height: 1px;
     background-color: rgba(255, 255, 255, 0.05);
-    margin: 12px 0;
+    margin: 10px 0;
   }
 
   .term-body {
@@ -482,9 +532,10 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
     word-break: break-word;
     color: #c9cbcf;
     font-family: var(--font-mono);
+    max-width: 100%;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 860px) {
     .cockpit-body {
       grid-template-columns: 1fr;
     }
@@ -492,6 +543,11 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
     .info-pane {
       border-right: none;
       border-bottom: 1px solid var(--color-border);
+      padding: 16px;
+    }
+
+    .terminal-pane {
+      padding: 16px;
     }
   }
 </style>
