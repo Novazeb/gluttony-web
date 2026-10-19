@@ -1,0 +1,21 @@
+{
+  "name": "gluttony-web",
+  "private": true,
+  "version": "2.2.0",
+  "type": "module",
+  "description": "Promotion and showcase website for Gluttony — High-precision lean engineering for autonomous AI agents.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "~7.0.2",
+    "vite": "^8.3.4"
+  },
+  "dependencies": {
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
+    "lucide-svelte": "^1.0.1",
+    "svelte": "^5.57.2"
+  }
+}

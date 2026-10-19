@@ -1,0 +1,225 @@
+:root {
+  /* Colors */
+  --color-void-black: #040506;
+  --color-ink: #07080a;
+  --color-obsidian: #111214;
+  --color-graphite: #1b1c1e;
+  --color-smoke: #6a6b6c;
+  --color-ash: #9c9c9d;
+  --color-mist: #e6e6e6;
+  --color-iron: #454647;
+  --color-slate: #2f3031;
+  --color-border: #363739;
+  --color-border-subtle: rgba(255, 255, 255, 0.07);
+  --color-pure-white: #ffffff;
+  --color-coral-pulse: #ff6363;
+  --color-ember-hush: #452324;
+  --color-electric-sky: #63a1ff;
+  --color-cobalt-edge: #143ca3;
+  --color-deep-space: #02193b;
+  --color-info-blue: #56c2ff;
+  --color-success-green: #59d499;
+
+  /* Surfaces */
+  --surface-canvas: #040506;
+  --surface-card: #07080a;
+  --surface-recessed: #111214;
+  --surface-badge: #1b1c1e;
+  --surface-accent-tint: #452324;
+
+  /* Fonts */
+  --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Spacing */
+  --page-max-width: 1200px;
+  --spacing-8: 8px;
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+  --spacing-80: 80px;
+  --spacing-96: 96px;
+  --spacing-120: 120px;
+
+  /* Radii */
+  --radius-buttons: 8px;
+  --radius-badges: 6px;
+  --radius-inputs: 8px;
+  --radius-cards: 16px;
+  --radius-largecards: 20px;
+  --radius-pills: 9999px;
+  --radius-circle: 99999px;
+
+  /* Shadows (Raycast 'key' treatment) */
+  --shadow-key: rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset, rgba(255, 255, 255, 0.22) 0px 0px 0px 1px, rgba(0, 0, 0, 0.2) 0px -1px 0px 0px inset;
+  --shadow-key-subtle: rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset, rgba(255, 255, 255, 0.12) 0px 0px 0px 1px, rgba(0, 0, 0, 0.3) 0px -1px 0px 0px inset;
+  --shadow-btn-lift: rgba(0, 0, 0, 0.03) 0px 7px 3px 0px, rgba(0, 0, 0, 0.25) 0px 4px 4px 0px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--color-void-black);
+  color: var(--color-pure-white);
+  font-family: var(--font-inter);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--color-void-black);
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-void-black);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-slate);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-iron);
+}
+
+/* Selection */
+::selection {
+  background: rgba(255, 99, 99, 0.25);
+  color: #ffffff;
+}
+
+/* Base utility classes */
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.text-coral {
+  color: var(--color-coral-pulse);
+}
+
+.text-ash {
+  color: var(--color-ash);
+}
+
+.text-smoke {
+  color: var(--color-smoke);
+}
+
+.text-pure-white {
+  color: var(--color-pure-white);
+}
+
+.container {
+  max-width: var(--page-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--spacing-24);
+  padding-right: var(--spacing-24);
+}
+
+/* Raycast tactile key card */
+.key-card {
+  background-color: var(--color-ink);
+  border-radius: var(--radius-cards);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-key);
+  transition: border-color 0.18s ease, transform 0.18s ease;
+}
+
+.key-card:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Raycast neutral Mist button */
+.btn-mist {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8);
+  background-color: var(--color-mist);
+  color: var(--color-iron);
+  font-family: var(--font-inter);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: var(--radius-buttons);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: var(--shadow-btn-lift);
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.btn-mist:hover {
+  background-color: #f2f2f2;
+  transform: translateY(-1px);
+}
+
+.btn-mist:active {
+  transform: translateY(0);
+}
+
+/* Ghost dark button */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8);
+  background-color: rgba(255, 255, 255, 0.04);
+  color: var(--color-ash);
+  font-family: var(--font-inter);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: var(--radius-buttons);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.btn-ghost:hover {
+  color: var(--color-pure-white);
+  border-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.07);
+}
+
+/* Inset Input / Recessed Well */
+.recessed-well {
+  background-color: var(--color-obsidian);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-inputs);
+  padding: 8px 12px;
+  color: var(--color-pure-white);
+}
+
+/* Badge tag */
+.badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: var(--color-graphite);
+  color: var(--color-pure-white);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 6px;
+  border-radius: var(--radius-badges);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
