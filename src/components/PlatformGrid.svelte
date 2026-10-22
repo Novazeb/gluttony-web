@@ -160,14 +160,17 @@
     gap: 10px;
     background-color: var(--color-ink);
     cursor: pointer;
-    transition: transform 0.15s ease, border-color 0.15s ease;
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), 
+                border-color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     box-sizing: border-box;
     min-width: 0;
   }
 
   .platform-tile:hover {
-    transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-3px);
+    border-color: rgba(255, 99, 99, 0.3);
+    box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.7), rgba(255, 99, 99, 0.08) 0 0 16px;
   }
 
   .tile-top {

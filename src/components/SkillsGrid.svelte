@@ -198,6 +198,14 @@
     color: var(--color-mist);
     box-shadow: rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset;
     flex-shrink: 0;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .skill-card:hover .icon-circle {
+    border-color: rgba(255, 99, 99, 0.4);
+    color: var(--color-coral-pulse);
+    box-shadow: 0 0 16px rgba(255, 99, 99, 0.2);
+    transform: scale(1.05);
   }
 
   .card-badges {

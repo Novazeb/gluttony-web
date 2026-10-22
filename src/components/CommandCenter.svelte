@@ -357,24 +357,25 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
     color: var(--color-ash);
     font-family: var(--font-mono);
     font-size: 11.5px;
-    padding: 4px 8px;
+    padding: 5px 10px;
     border-radius: 6px;
     cursor: pointer;
     white-space: nowrap;
-    transition: all 0.15s ease;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     flex-shrink: 0;
   }
 
   .cmd-pill:hover {
     color: var(--color-pure-white);
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.06);
+    transform: translateY(-1px);
   }
 
   .cmd-pill.active {
-    background-color: #1b1c1e;
+    background-color: #15161a;
     color: var(--color-pure-white);
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: var(--shadow-key-subtle);
+    border-color: rgba(255, 99, 99, 0.35);
+    box-shadow: 0 0 16px rgba(255, 99, 99, 0.12), var(--shadow-key-subtle);
   }
 
   .cmd-pill-slash {

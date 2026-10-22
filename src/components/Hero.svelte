@@ -137,6 +137,7 @@
     height: 480px;
     background: radial-gradient(circle, rgba(4, 63, 150, 0.45) 0%, rgba(6, 18, 37, 0.15) 60%, rgba(4, 5, 6, 0) 80%);
     filter: blur(50px);
+    animation: ambientGlowFloat 12s ease-in-out infinite;
   }
 
   .glow-coral-diagonal {
@@ -149,6 +150,7 @@
     height: 120px;
     background: linear-gradient(90deg, transparent 0%, rgba(255, 99, 99, 0.32) 40%, rgba(255, 99, 99, 0.15) 75%, transparent 100%);
     filter: blur(48px);
+    animation: ambientDiagonalShift 9s ease-in-out infinite;
   }
 
   .glow-coral-accent {
@@ -161,6 +163,40 @@
     height: 90px;
     background: rgba(255, 99, 99, 0.22);
     filter: blur(60px);
+    animation: ambientPulse 6s ease-in-out infinite;
+  }
+
+  @keyframes ambientGlowFloat {
+    0%, 100% {
+      transform: translate(-50%, -40%) scale(1);
+      opacity: 0.85;
+    }
+    50% {
+      transform: translate(-50%, -36%) scale(1.06);
+      opacity: 1;
+    }
+  }
+
+  @keyframes ambientDiagonalShift {
+    0%, 100% {
+      transform: translate(-50%, -50%) rotate(-25deg) scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: translate(-48%, -48%) rotate(-22deg) scale(1.05);
+      opacity: 1;
+    }
+  }
+
+  @keyframes ambientPulse {
+    0%, 100% {
+      opacity: 0.6;
+      transform: translateX(-50%) scale(0.95);
+    }
+    50% {
+      opacity: 1;
+      transform: translateX(-50%) scale(1.1);
+    }
   }
 
   .mesh-grid {
@@ -186,6 +222,7 @@
   .eyebrow-container {
     margin-bottom: 20px;
     max-width: 100%;
+    animation: heroFadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
   }
 
   .eyebrow-pill {
@@ -227,6 +264,7 @@
     color: var(--color-pure-white);
     margin-bottom: 20px;
     max-width: 900px;
+    animation: heroFadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
   }
 
   .hero-subheadline {
@@ -236,6 +274,7 @@
     color: var(--color-ash);
     max-width: 580px;
     margin-bottom: 32px;
+    animation: heroFadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
   }
 
   .hero-actions {
@@ -245,11 +284,17 @@
     margin-bottom: 24px;
     width: 100%;
     justify-content: center;
+    animation: heroFadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
   }
 
   .hero-btn {
     padding: 10px 18px;
     font-size: 13.5px;
+    transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease, background-color 0.18s ease;
+  }
+
+  .hero-btn:hover {
+    transform: translateY(-2px);
   }
 
   .hero-star-pill {
@@ -274,9 +319,28 @@
     cursor: pointer;
     margin-bottom: 32px;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset;
-    transition: border-color 0.15s ease, background-color 0.15s ease;
+    transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
     width: 100%;
     max-width: 440px;
+    animation: heroFadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+  }
+
+  .terminal-command-well:hover {
+    border-color: rgba(255, 99, 99, 0.35);
+    background-color: #151619;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 16px rgba(255, 99, 99, 0.12);
+  }
+
+  @keyframes heroFadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .cmd-content-left {
@@ -289,34 +353,6 @@
     min-width: 0;
   }
 
-  .terminal-command-well:hover {
-    border-color: rgba(255, 255, 255, 0.25);
-    background-color: #151619;
-  }
-
-  .cmd-prompt {
-    color: var(--color-coral-pulse);
-    font-size: 13px;
-    flex-shrink: 0;
-  }
-
-  .cmd-text {
-    color: var(--color-pure-white);
-    font-size: 12.5px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .cmd-badge {
-    color: var(--color-smoke);
-    font-size: 10px;
-    letter-spacing: 0.5px;
-    padding-left: 8px;
-    border-left: 1px solid var(--color-slate);
-    flex-shrink: 0;
-  }
-
   .hero-meta-strip {
     display: flex;
     align-items: center;
@@ -325,6 +361,23 @@
     gap: 10px;
     font-size: 11.5px;
     color: var(--color-smoke);
+    animation: heroFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .eyebrow-container,
+    .hero-headline,
+    .hero-subheadline,
+    .hero-actions,
+    .terminal-command-well,
+    .hero-meta-strip,
+    .glow-blue,
+    .glow-coral-diagonal,
+    .glow-coral-accent {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
   }
 
   .divider {
