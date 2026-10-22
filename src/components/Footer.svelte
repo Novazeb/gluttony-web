@@ -23,10 +23,13 @@
 
       <div class="footer-links-group">
         <a href="#cockpit" class="footer-link">Cockpit</a>
+        <a href="#diff" class="footer-link">Diff</a>
+        <a href="#rules" class="footer-link">Rules</a>
         <a href="#skills" class="footer-link">Sub-Skills</a>
+        <a href="#setup" class="footer-link">Setup</a>
         <a href="#benchmark" class="footer-link">Benchmark</a>
         <a href="#contrast" class="footer-link">WCAG Tool</a>
-        <a href="#platforms" class="footer-link">Platforms</a>
+        <a href="#faq" class="footer-link">FAQ</a>
         <a
           href="https://github.com/Novazeb/gluttony"
           target="_blank"

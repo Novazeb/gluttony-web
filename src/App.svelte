@@ -2,10 +2,14 @@
   import Navbar from './components/Navbar.svelte';
   import Hero from './components/Hero.svelte';
   import CommandCenter from './components/CommandCenter.svelte';
+  import DiffViewer from './components/DiffViewer.svelte';
+  import RuleCheatSheet from './components/RuleCheatSheet.svelte';
   import SkillsGrid from './components/SkillsGrid.svelte';
+  import SetupWizard from './components/SetupWizard.svelte';
   import BenchmarkSection from './components/BenchmarkSection.svelte';
   import ContrastWidget from './components/ContrastWidget.svelte';
   import PlatformGrid from './components/PlatformGrid.svelte';
+  import FaqSection from './components/FaqSection.svelte';
   import Footer from './components/Footer.svelte';
 </script>
 
@@ -14,10 +18,14 @@
   <main>
     <Hero />
     <CommandCenter />
+    <DiffViewer />
+    <RuleCheatSheet />
     <SkillsGrid />
+    <SetupWizard />
     <BenchmarkSection />
     <ContrastWidget />
     <PlatformGrid />
+    <FaqSection />
   </main>
   <Footer />
 </div>
@@ -35,6 +43,6 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 48px;
   }
 </style>
