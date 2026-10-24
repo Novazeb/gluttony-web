@@ -36,7 +36,7 @@
             }
           });
         },
-        { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+        { threshold: 0.04, rootMargin: '120px 0px 40px 0px' }
       );
 
       document.querySelectorAll('.reveal-on-scroll').forEach((el) => {

@@ -156,6 +156,9 @@
     <div class="mesh-grid"></div>
   </div>
 
+  <!-- Smooth bottom feather fade into page content (eliminates all sharp dividing lines) -->
+  <div class="hero-bottom-fade" aria-hidden="true"></div>
+
   <div class="hero-content container">
     <!-- Eyebrow Pill -->
     <div class="eyebrow-container">
@@ -198,7 +201,7 @@
       </a>
     </div>
 
-    <!-- Command strip preview with Traveling Border Beam Laser -->
+    <!-- Command strip preview -->
     <div
       class="terminal-command-well"
       onclick={copyCommand}
@@ -206,9 +209,6 @@
       tabindex="0"
       onkeydown={(e) => e.key === 'Enter' && copyCommand()}
     >
-      <!-- Perimeter Border Beam -->
-      <div class="border-beam-tracer" aria-hidden="true"></div>
-
       <div class="cmd-content-left">
         <span class="cmd-prompt font-mono">$</span>
         <span class="cmd-text font-mono">{installCmd}</span>
@@ -245,7 +245,7 @@
     max-width: 100vw;
   }
 
-  /* Atmospheric backdrop */
+  /* Atmospheric backdrop with smooth bottom fade to avoid sharp cutoffs */
   .hero-atmosphere {
     position: absolute;
     inset: 0;
@@ -253,6 +253,20 @@
     z-index: 0;
     overflow: hidden;
     max-width: 100vw;
+    mask-image: linear-gradient(to bottom, black 0%, black 72%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 72%, transparent 100%);
+  }
+
+  /* Seamless bottom feather fade eliminating any dividing lines */
+  .hero-bottom-fade {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 160px;
+    background: linear-gradient(to bottom, transparent, var(--color-void-black));
+    pointer-events: none;
+    z-index: 2;
   }
 
   .hero-canvas {
@@ -534,60 +548,32 @@
     box-shadow: 0 0 10px rgba(255, 99, 99, 0.3);
   }
 
-  /* Terminal Well with Animated Border Beam */
+  /* Terminal Command Well */
   .terminal-command-well {
-    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    background-color: rgba(17, 18, 20, 0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: var(--color-obsidian);
+    border: 1px solid rgba(255, 99, 99, 0.28);
     border-radius: var(--radius-inputs);
     padding: 10px 14px;
     cursor: pointer;
     margin-bottom: 32px;
-    box-shadow: rgba(0, 0, 0, 0.5) 0px 4px 16px 0px, rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset;
-    transition: border-color 0.24s ease, background-color 0.24s ease, transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.24s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 
+                0 0 16px rgba(255, 99, 99, 0.1),
+                rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset;
+    transition: border-color 0.22s ease, background-color 0.22s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease;
     width: 100%;
     max-width: 440px;
-    overflow: hidden;
     animation: cinemaReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
   }
 
   .terminal-command-well:hover {
-    border-color: rgba(255, 99, 99, 0.4);
-    background-color: #15161a;
+    border-color: rgba(255, 99, 99, 0.55);
+    background-color: #16171b;
     transform: translateY(-2px);
-    box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.7), 0 0 24px rgba(255, 99, 99, 0.18);
-  }
-
-  /* Rotating Traveling Laser Border Beam */
-  .border-beam-tracer {
-    position: absolute;
-    inset: -150%;
-    background: conic-gradient(
-      from 0deg,
-      transparent 65%,
-      rgba(255, 99, 99, 0.85) 84%,
-      rgba(99, 161, 255, 0.9) 95%,
-      transparent 100%
-    );
-    animation: laserSpin 5s linear infinite;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.75;
-  }
-
-  @keyframes laserSpin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+    box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.7), 0 0 24px rgba(255, 99, 99, 0.22);
   }
 
   .cmd-content-left {
@@ -667,7 +653,6 @@
     .glow-coral-diagonal,
     .glow-coral-accent,
     .cosmic-aura-ring,
-    .border-beam-tracer,
     .hero-canvas {
       animation: none !important;
       opacity: 1 !important;
