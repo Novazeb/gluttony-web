@@ -325,23 +325,24 @@ export function transformUser(raw: any): UserDTO {
     border: 1px solid transparent;
     color: var(--color-ash);
     font-size: 11.5px;
-    padding: 6px 10px;
+    padding: 6px 12px;
     border-radius: 6px;
     cursor: pointer;
     white-space: nowrap;
-    transition: all 0.15s ease;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .scenario-btn:hover {
     color: var(--color-pure-white);
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.06);
+    transform: translateY(-1px);
   }
 
   .scenario-btn.active {
-    background-color: #1b1c1e;
+    background-color: #17181c;
     color: var(--color-pure-white);
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: var(--shadow-key-subtle);
+    border-color: rgba(255, 99, 99, 0.35);
+    box-shadow: 0 0 16px rgba(255, 99, 99, 0.12), var(--shadow-key-subtle);
   }
 
   .view-switcher {
@@ -400,7 +401,23 @@ export function transformUser(raw: any): UserDTO {
 
   .stat-tag {
     font-size: 11.5px;
-    font-weight: 500;
+    font-weight: 600;
+    padding: 3px 10px;
+    background: rgba(255, 99, 99, 0.1);
+    border: 1px solid rgba(255, 99, 99, 0.3);
+    border-radius: 6px;
+    animation: metricGlow 3s ease-in-out infinite;
+  }
+
+  @keyframes metricGlow {
+    0%, 100% {
+      box-shadow: 0 0 8px rgba(255, 99, 99, 0.15);
+      border-color: rgba(255, 99, 99, 0.25);
+    }
+    50% {
+      box-shadow: 0 0 18px rgba(255, 99, 99, 0.35);
+      border-color: rgba(255, 99, 99, 0.55);
+    }
   }
 
   .copy-btn {

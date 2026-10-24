@@ -124,6 +124,9 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
 
   <!-- Raycast App Window Mockup -->
   <div class="cockpit-window key-card">
+    <!-- Top Edge Scanning Laser Beam -->
+    <div class="cockpit-beam-scanner" aria-hidden="true"></div>
+
     <!-- Window Titlebar -->
     <div class="window-titlebar">
       <div class="traffic-lights">
@@ -255,10 +258,48 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
 
   /* Raycast window chrome */
   .cockpit-window {
+    position: relative;
     overflow: hidden;
     background-color: var(--color-ink);
     width: 100%;
     box-sizing: border-box;
+  }
+
+  /* Scanning Laser Beam across window top border */
+  .cockpit-beam-scanner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1.5px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 99, 99, 0) 15%,
+      #ff6363 45%,
+      #63a1ff 70%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: scannerSweep 5.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    z-index: 10;
+    pointer-events: none;
+    box-shadow: 0 0 12px rgba(255, 99, 99, 0.6);
+  }
+
+  @keyframes scannerSweep {
+    0% {
+      background-position: -120% 0;
+      opacity: 0.2;
+    }
+    50% {
+      background-position: 80% 0;
+      opacity: 1;
+    }
+    100% {
+      background-position: 220% 0;
+      opacity: 0.2;
+    }
   }
 
   .window-titlebar {
