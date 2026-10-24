@@ -31,7 +31,7 @@
       // Fallback
     }
 
-    // Majestic Constellation & Stardust Canvas Animation
+    // Stardust Canvas with natural vertical edge fading
     if (!canvasEl) return;
     const canvas = canvasEl;
     const ctx = canvas.getContext('2d');
@@ -49,15 +49,15 @@
     window.addEventListener('resize', onResize);
 
     const colors = ['#ff6363', '#63a1ff', '#ffffff', '#ff9999'];
-    const pCount = Math.min(42, Math.floor((w * h) / 28000));
+    const pCount = Math.min(38, Math.floor((w * h) / 30000));
     const particles = Array.from({ length: pCount }, () => ({
       x: Math.random() * w,
-      y: Math.random() * h,
-      vx: (Math.random() - 0.5) * 0.32,
-      vy: (Math.random() - 0.5) * 0.32,
-      radius: Math.random() * 1.6 + 0.6,
-      baseAlpha: Math.random() * 0.45 + 0.25,
-      alpha: Math.random() * 0.45 + 0.25,
+      y: Math.random() * (h * 0.72) + 20, // Keep particles within upper 75%
+      vx: (Math.random() - 0.5) * 0.28,
+      vy: (Math.random() - 0.5) * 0.28,
+      radius: Math.random() * 1.5 + 0.6,
+      baseAlpha: Math.random() * 0.45 + 0.2,
+      alpha: Math.random() * 0.45 + 0.2,
       color: colors[Math.floor(Math.random() * colors.length)],
       phase: Math.random() * Math.PI * 2,
     }));
@@ -65,49 +65,65 @@
     const render = () => {
       ctx.clearRect(0, 0, w, h);
 
-      // Faint luminous connection lines between nearby stardust
+      const bottomFadeStart = h * 0.62;
+
+      // Draw faint connections between nearby stardust
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const dist = Math.hypot(dx, dy);
-          if (dist < 115) {
-            const lineAlpha = (1 - dist / 115) * 0.14;
-            ctx.strokeStyle = `rgba(255, 99, 99, ${lineAlpha})`;
-            ctx.lineWidth = 0.65;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
+          if (dist < 105) {
+            const avgY = (particles[i].y + particles[j].y) / 2;
+            let fade = 1;
+            if (avgY > bottomFadeStart) {
+              fade = Math.max(0, 1 - (avgY - bottomFadeStart) / (h * 0.75 - bottomFadeStart));
+            }
+            const lineAlpha = (1 - dist / 105) * 0.12 * fade;
+            if (lineAlpha > 0.005) {
+              ctx.strokeStyle = `rgba(255, 99, 99, ${lineAlpha})`;
+              ctx.lineWidth = 0.6;
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.stroke();
+            }
           }
         }
       }
 
-      // Draw glowing particles
+      // Draw glowing particles with smooth bottom fade
       for (const p of particles) {
         p.x += p.vx;
         p.y += p.vy;
         p.phase += 0.02;
-        p.alpha = p.baseAlpha + Math.sin(p.phase) * 0.22;
+
+        let edgeAlpha = 1;
+        if (p.y > bottomFadeStart) {
+          edgeAlpha = Math.max(0, 1 - (p.y - bottomFadeStart) / (h * 0.75 - bottomFadeStart));
+        }
+
+        p.alpha = (p.baseAlpha + Math.sin(p.phase) * 0.2) * edgeAlpha;
 
         if (p.x < -10) p.x = w + 10;
         if (p.x > w + 10) p.x = -10;
-        if (p.y < -10) p.y = h + 10;
-        if (p.y > h + 10) p.y = -10;
+        if (p.y < 10) p.vy = Math.abs(p.vy);
+        if (p.y > h * 0.74) p.vy = -Math.abs(p.vy);
 
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = Math.max(0, Math.min(1, p.alpha));
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Subtle soft radial halo for larger motes
-        if (p.radius > 1.3) {
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.radius * 2.5, 0, Math.PI * 2);
+        if (p.alpha > 0.01) {
           ctx.fillStyle = p.color;
-          ctx.globalAlpha = p.alpha * 0.16;
+          ctx.globalAlpha = Math.max(0, Math.min(1, p.alpha));
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
           ctx.fill();
+
+          if (p.radius > 1.3) {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius * 2.4, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.globalAlpha = p.alpha * 0.15;
+            ctx.fill();
+          }
         }
       }
 
@@ -145,19 +161,14 @@
   bind:this={heroSectionEl}
   class="hero-section"
 >
-  <!-- Atmospheric backdrop: Raycast cinematic red/blue geometry + Canvas Particle Starfield -->
+  <!-- Atmospheric backdrop: Self-contained Raycast aurora that naturally dissolves before reaching container edges -->
   <div class="hero-atmosphere" aria-hidden="true">
     <canvas bind:this={canvasEl} class="hero-canvas"></canvas>
     <div class="hero-cursor-spotlight"></div>
-    <div class="glow-blue"></div>
-    <div class="glow-coral-diagonal"></div>
-    <div class="glow-coral-accent"></div>
-    <div class="cosmic-aura-ring"></div>
+    <div class="glow-aurora-core"></div>
+    <div class="glow-aurora-accent"></div>
     <div class="mesh-grid"></div>
   </div>
-
-  <!-- Smooth bottom feather fade into page content (eliminates all sharp dividing lines) -->
-  <div class="hero-bottom-fade" aria-hidden="true"></div>
 
   <div class="hero-content container">
     <!-- Eyebrow Pill -->
@@ -201,7 +212,7 @@
       </a>
     </div>
 
-    <!-- Command strip preview -->
+    <!-- Command strip preview (Clean, crisp, artifact-free) -->
     <div
       class="terminal-command-well"
       onclick={copyCommand}
@@ -234,39 +245,24 @@
 <style>
   .hero-section {
     position: relative;
-    min-height: 84vh;
+    min-height: 82vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 140px;
-    padding-bottom: 75px;
-    overflow: hidden;
+    padding-top: 135px;
+    padding-bottom: 60px;
     width: 100%;
     max-width: 100vw;
+    background-color: var(--color-void-black);
   }
 
-  /* Atmospheric backdrop with smooth bottom fade to avoid sharp cutoffs */
+  /* Atmosphere: Self-contained layer */
   .hero-atmosphere {
     position: absolute;
     inset: 0;
     pointer-events: none;
     z-index: 0;
     overflow: hidden;
-    max-width: 100vw;
-    mask-image: linear-gradient(to bottom, black 0%, black 72%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 72%, transparent 100%);
-  }
-
-  /* Seamless bottom feather fade eliminating any dividing lines */
-  .hero-bottom-fade {
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    right: 0;
-    height: 160px;
-    background: linear-gradient(to bottom, transparent, var(--color-void-black));
-    pointer-events: none;
-    z-index: 2;
   }
 
   .hero-canvas {
@@ -285,121 +281,83 @@
     inset: 0;
     z-index: 2;
     background: radial-gradient(
-      650px circle at var(--mouse-x, 50%) var(--mouse-y, 35%),
+      520px circle at var(--mouse-x, 50%) var(--mouse-y, 35%),
       rgba(255, 99, 99, 0.08),
-      rgba(99, 161, 255, 0.04) 40%,
+      rgba(99, 161, 255, 0.03) 45%,
       transparent 70%
     );
     pointer-events: none;
-    transition: opacity 0.3s ease;
   }
 
-  .glow-blue {
+  /* Centered Raycast Aurora Core: completely dissolves to transparent at 70%, never touches any border */
+  .glow-aurora-core {
     position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -40%);
-    width: 850px;
-    max-width: 100vw;
-    height: 520px;
-    background: radial-gradient(circle, rgba(4, 63, 150, 0.45) 0%, rgba(6, 18, 37, 0.18) 60%, rgba(4, 5, 6, 0) 80%);
-    filter: blur(55px);
-    animation: ambientGlowFloat 14s ease-in-out infinite;
-  }
-
-  .glow-coral-diagonal {
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-25deg);
-    width: 720px;
-    max-width: 120vw;
-    height: 130px;
-    background: linear-gradient(90deg, transparent 0%, rgba(255, 99, 99, 0.35) 40%, rgba(255, 99, 99, 0.16) 75%, transparent 100%);
-    filter: blur(50px);
-    animation: ambientDiagonalShift 10s ease-in-out infinite;
-  }
-
-  .glow-coral-accent {
-    position: absolute;
-    top: 38%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 320px;
-    max-width: 80vw;
-    height: 100px;
-    background: rgba(255, 99, 99, 0.25);
-    filter: blur(65px);
-    animation: ambientPulse 7s ease-in-out infinite;
-  }
-
-  .cosmic-aura-ring {
-    position: absolute;
-    top: 36%;
+    top: 26%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 680px;
-    height: 380px;
-    border-radius: 50%;
-    border: 1px solid rgba(255, 99, 99, 0.08);
-    box-shadow: 0 0 80px rgba(99, 161, 255, 0.06) inset;
-    filter: blur(1px);
-    animation: auraSpin 25s linear infinite;
+    width: 820px;
+    max-width: 90vw;
+    height: 440px;
+    background: radial-gradient(
+      ellipse 60% 50% at 50% 50%,
+      rgba(4, 63, 150, 0.38) 0%,
+      rgba(255, 99, 99, 0.16) 35%,
+      rgba(4, 5, 6, 0) 70%
+    );
+    pointer-events: none;
+    animation: auroraBreathe 12s ease-in-out infinite alternate;
   }
 
-  @keyframes auraSpin {
+  /* Centered Raycast Aurora Accent */
+  .glow-aurora-accent {
+    position: absolute;
+    top: 32%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 520px;
+    max-width: 80vw;
+    height: 180px;
+    background: radial-gradient(
+      ellipse 55% 50% at 50% 50%,
+      rgba(255, 99, 99, 0.28) 0%,
+      rgba(99, 161, 255, 0.1) 40%,
+      rgba(4, 5, 6, 0) 70%
+    );
+    pointer-events: none;
+    animation: auroraPulse 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes auroraBreathe {
     0% {
-      transform: translate(-50%, -50%) rotate(0deg) scale(0.96);
-    }
-    50% {
-      transform: translate(-50%, -50%) rotate(180deg) scale(1.04);
-    }
-    100% {
-      transform: translate(-50%, -50%) rotate(360deg) scale(0.96);
-    }
-  }
-
-  @keyframes ambientGlowFloat {
-    0%, 100% {
-      transform: translate(-50%, -40%) scale(1);
+      transform: translate(-50%, -50%) scale(0.96);
       opacity: 0.85;
     }
-    50% {
-      transform: translate(-50%, -35%) scale(1.08);
+    100% {
+      transform: translate(-50%, -48%) scale(1.05);
       opacity: 1;
     }
   }
 
-  @keyframes ambientDiagonalShift {
-    0%, 100% {
-      transform: translate(-50%, -50%) rotate(-25deg) scale(1);
-      opacity: 0.8;
+  @keyframes auroraPulse {
+    0% {
+      transform: translate(-50%, -50%) scale(0.92);
+      opacity: 0.7;
     }
-    50% {
-      transform: translate(-48%, -48%) rotate(-21deg) scale(1.06);
+    100% {
+      transform: translate(-50%, -50%) scale(1.08);
       opacity: 1;
     }
   }
 
-  @keyframes ambientPulse {
-    0%, 100% {
-      opacity: 0.55;
-      transform: translateX(-50%) scale(0.94);
-    }
-    50% {
-      opacity: 1;
-      transform: translateX(-50%) scale(1.12);
-    }
-  }
-
+  /* Mesh Grid: Naturally fades to transparent in all directions well before reaching edges */
   .mesh-grid {
     position: absolute;
     inset: 0;
     background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
                       linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
     background-size: 40px 40px;
-    mask-image: radial-gradient(circle at 50% 40%, black 25%, transparent 75%);
-    -webkit-mask-image: radial-gradient(circle at 50% 40%, black 25%, transparent 75%);
+    mask-image: radial-gradient(ellipse 50% 45% at 50% 35%, black 20%, transparent 65%);
+    -webkit-mask-image: radial-gradient(ellipse 50% 45% at 50% 35%, black 20%, transparent 65%);
   }
 
   .hero-content {
@@ -548,7 +506,7 @@
     box-shadow: 0 0 10px rgba(255, 99, 99, 0.3);
   }
 
-  /* Terminal Command Well */
+  /* Terminal Command Well (Clean, crisp, artifact-free) */
   .terminal-command-well {
     display: inline-flex;
     align-items: center;
@@ -649,10 +607,8 @@
     .hero-actions,
     .terminal-command-well,
     .hero-meta-strip,
-    .glow-blue,
-    .glow-coral-diagonal,
-    .glow-coral-accent,
-    .cosmic-aura-ring,
+    .glow-aurora-core,
+    .glow-aurora-accent,
     .hero-canvas {
       animation: none !important;
       opacity: 1 !important;

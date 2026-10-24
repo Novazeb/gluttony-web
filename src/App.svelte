@@ -56,13 +56,6 @@
 </script>
 
 <div class="site-root">
-  <!-- Cosmic Aurora Atmosphere Layer -->
-  <div class="global-aurora-layer" aria-hidden="true">
-    <div class="aurora-orb orb-1"></div>
-    <div class="aurora-orb orb-2"></div>
-    <div class="aurora-orb orb-3"></div>
-  </div>
-
   <Navbar />
   <main>
     <Hero />
@@ -90,65 +83,6 @@
     overflow-x: hidden;
   }
 
-  /* Cosmic Aurora Atmosphere */
-  .global-aurora-layer {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
-  }
-
-  .aurora-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(140px);
-    opacity: 0.14;
-    will-change: transform;
-  }
-
-  .orb-1 {
-    top: 15%;
-    left: -12%;
-    width: 650px;
-    height: 650px;
-    background: radial-gradient(circle, #ff6363 0%, rgba(255, 99, 99, 0) 70%);
-    animation: floatOrb1 26s ease-in-out infinite alternate;
-  }
-
-  .orb-2 {
-    top: 48%;
-    right: -12%;
-    width: 700px;
-    height: 700px;
-    background: radial-gradient(circle, #2458f5 0%, rgba(36, 88, 245, 0) 70%);
-    animation: floatOrb2 30s ease-in-out infinite alternate;
-  }
-
-  .orb-3 {
-    bottom: 8%;
-    left: 20%;
-    width: 550px;
-    height: 550px;
-    background: radial-gradient(circle, #ff6363 0%, rgba(255, 99, 99, 0) 70%);
-    animation: floatOrb3 24s ease-in-out infinite alternate;
-  }
-
-  @keyframes floatOrb1 {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(90px, 110px) scale(1.15); }
-  }
-
-  @keyframes floatOrb2 {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(-110px, -90px) scale(1.12); }
-  }
-
-  @keyframes floatOrb3 {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(70px, -70px) scale(1.16); }
-  }
-
   main {
     position: relative;
     z-index: 1;
@@ -156,13 +90,5 @@
     display: flex;
     flex-direction: column;
     gap: 48px;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .aurora-orb {
-      animation: none !important;
-      opacity: 0.08 !important;
-      transform: none !important;
-    }
   }
 </style>
