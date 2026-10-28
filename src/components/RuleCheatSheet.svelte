@@ -253,41 +253,51 @@
         <div
           class="rule-card key-card"
           class:expanded={expandedRule === rule.id}
-          onclick={() => toggleRule(rule.id)}
-          role="button"
-          tabindex="0"
-          onkeydown={(e) => e.key === 'Enter' && toggleRule(rule.id)}
         >
           <!-- Rule Header Row -->
           <div class="rule-row">
-            <div class="rule-left">
-              <span class="rule-number font-mono text-coral">RULE {rule.id.toString().padStart(2, '0')}</span>
-              <h3 class="rule-title">{rule.title}</h3>
-              <span class="badge-tag rule-badge">{rule.categoryName}</span>
-            </div>
+            <button
+              class="rule-toggle-btn"
+              onclick={() => toggleRule(rule.id)}
+              aria-expanded={expandedRule === rule.id}
+              aria-controls="rule-directive-{rule.id}"
+            >
+              <div class="rule-left">
+                <span class="rule-number font-mono text-coral">RULE {rule.id.toString().padStart(2, '0')}</span>
+                <h3 class="rule-title">{rule.title}</h3>
+                <span class="badge-tag rule-badge">{rule.categoryName}</span>
+              </div>
+              <span class="chevron-indicator" class:open={expandedRule === rule.id} aria-hidden="true">▾</span>
+            </button>
 
             <div class="rule-right">
               <button
                 onclick={(e) => copyDirective(rule, e)}
                 class="btn-ghost rule-copy-btn font-mono"
                 title="Copy directive prompt snippet"
+                aria-label="Copy Rule {rule.id} directive"
               >
                 {copiedRule === rule.id ? 'Copied' : 'Copy'}
               </button>
-              <span class="chevron-indicator" class:open={expandedRule === rule.id}>▾</span>
             </div>
           </div>
 
           <!-- Summary preview -->
           <p class="rule-summary text-ash">{rule.summary}</p>
 
-          <!-- Expanded Directive Box -->
-          {#if expandedRule === rule.id}
-            <div class="directive-box">
-              <span class="directive-label font-mono">CANONICAL PROMPT DIRECTIVE:</span>
-              <pre class="directive-code font-mono"><code>{rule.directive}</code></pre>
+          <!-- CSS Grid Smooth Accordion Box -->
+          <div
+            id="rule-directive-{rule.id}"
+            class="accordion-content-wrapper"
+            class:open={expandedRule === rule.id}
+          >
+            <div class="accordion-content-inner">
+              <div class="directive-box">
+                <span class="directive-label font-mono">CANONICAL PROMPT DIRECTIVE:</span>
+                <pre class="directive-code font-mono"><code>{rule.directive}</code></pre>
+              </div>
             </div>
-          {/if}
+          </div>
         </div>
       {/each}
     {/if}
@@ -398,16 +408,15 @@
   }
 
   .rule-card {
-    padding: 18px 20px;
-    cursor: pointer;
+    padding: 16px 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    transition: border-color 0.15s ease, background-color 0.15s ease;
+    gap: 8px;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
   }
 
   .rule-card:hover {
-    border-color: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.2);
   }
 
   .rule-card.expanded {
@@ -420,6 +429,28 @@
     align-items: center;
     justify-content: space-between;
     gap: 12px;
+  }
+
+  .rule-toggle-btn {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 1;
+    gap: 12px;
+    cursor: pointer;
+    text-align: left;
+    color: inherit;
+    min-height: 38px;
+  }
+
+  .rule-toggle-btn:focus-visible {
+    outline: 2px solid var(--color-coral);
+    outline-offset: 4px;
+    border-radius: 4px;
   }
 
   .rule-left {
@@ -461,7 +492,8 @@
   .chevron-indicator {
     color: var(--color-smoke);
     font-size: 14px;
-    transition: transform 0.2s ease;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-left: 8px;
   }
 
   .chevron-indicator.open {
@@ -472,10 +504,27 @@
   .rule-summary {
     font-size: 13.5px;
     line-height: 1.5;
+    margin: 0;
+  }
+
+  .accordion-content-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.26s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease;
+    opacity: 0;
+  }
+
+  .accordion-content-wrapper.open {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  .accordion-content-inner {
+    overflow: hidden;
   }
 
   .directive-box {
-    margin-top: 6px;
+    margin-top: 10px;
     padding: 12px 14px;
     background-color: var(--color-obsidian);
     border: 1px solid rgba(255, 255, 255, 0.08);

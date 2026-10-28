@@ -1,24 +1,75 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
+  type PlatformKey = 'claude' | 'cursor' | 'antigravity' | 'codex' | 'windsurf';
+
+  const harnessOptions: Record<PlatformKey, { name: string; cmd: string; short: string }> = {
+    claude: {
+      name: 'Claude Code',
+      cmd: '/plugin install gluttony@gluttony',
+      short: 'CLAUDE.md',
+    },
+    cursor: {
+      name: 'Cursor',
+      cmd: 'curl -fsSL https://raw.githubusercontent.com/Novazeb/gluttony/main/.cursor/rules/gluttony.mdc -o .cursor/rules/gluttony.mdc',
+      short: '.cursorrules',
+    },
+    antigravity: {
+      name: 'Antigravity',
+      cmd: 'antigravity plugin install Novazeb/gluttony',
+      short: 'GEMINI.md',
+    },
+    codex: {
+      name: 'Codex',
+      cmd: 'codex plugin add Novazeb/gluttony',
+      short: 'AGENTS.md',
+    },
+    windsurf: {
+      name: 'Windsurf',
+      cmd: 'curl -fsSL https://raw.githubusercontent.com/Novazeb/gluttony/main/.windsurf/rules/gluttony.md -o .windsurf/rules/gluttony.md',
+      short: '.windsurf',
+    },
+  };
+
+  let selectedHarness = $state<PlatformKey>('claude');
   let copyState = $state<'idle' | 'copied'>('idle');
   let starCount = $state<number | null>(null);
-  const installCmd = '/plugin install gluttony@gluttony';
+
+  let currentCmd = $derived(harnessOptions[selectedHarness].cmd);
 
   let heroSectionEl: HTMLElement;
   let canvasEl: HTMLCanvasElement;
+  let mouseX = -9999;
+  let mouseY = -9999;
 
   function onHeroMouseMove(e: MouseEvent) {
     if (!heroSectionEl) return;
     const rect = heroSectionEl.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    heroSectionEl.style.setProperty('--mouse-x', `${x}px`);
-    heroSectionEl.style.setProperty('--mouse-y', `${y}px`);
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+    heroSectionEl.style.setProperty('--mouse-x', `${mouseX}px`);
+    heroSectionEl.style.setProperty('--mouse-y', `${mouseY}px`);
+  }
+
+  function copyCurrentCommand() {
+    navigator.clipboard.writeText(currentCmd);
+    copyState = 'copied';
+    setTimeout(() => {
+      copyState = 'idle';
+    }, 2200);
   }
 
   onMount(async () => {
-    // Live GitHub stars fetch
+    // Keyboard shortcut Cmd+K / Ctrl+K to copy active command
+    const handleKeydown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        copyCurrentCommand();
+      }
+    };
+    window.addEventListener('keydown', handleKeydown);
+
+    // Live GitHub stars fetch with fallback
     try {
       const res = await fetch('https://api.github.com/repos/Novazeb/gluttony');
       if (res.ok) {
@@ -31,7 +82,7 @@
       // Fallback
     }
 
-    // Stardust Canvas with natural vertical edge fading
+    // Stardust Canvas with natural vertical edge fading and subtle pointer interaction
     if (!canvasEl) return;
     const canvas = canvasEl;
     const ctx = canvas.getContext('2d');
@@ -48,11 +99,11 @@
     };
     window.addEventListener('resize', onResize);
 
-    const colors = ['#ff6363', '#63a1ff', '#ffffff', '#ff9999'];
-    const pCount = Math.min(38, Math.floor((w * h) / 30000));
+    const colors = ['#ff6363', '#63a1ff', '#ffffff', '#ff8b8b'];
+    const pCount = Math.min(36, Math.floor((w * h) / 32000));
     const particles = Array.from({ length: pCount }, () => ({
       x: Math.random() * w,
-      y: Math.random() * (h * 0.72) + 20, // Keep particles within upper 75%
+      y: Math.random() * (h * 0.7) + 20,
       vx: (Math.random() - 0.5) * 0.28,
       vy: (Math.random() - 0.5) * 0.28,
       radius: Math.random() * 1.5 + 0.6,
@@ -65,7 +116,7 @@
     const render = () => {
       ctx.clearRect(0, 0, w, h);
 
-      const bottomFadeStart = h * 0.62;
+      const bottomFadeStart = h * 0.58;
 
       // Draw faint connections between nearby stardust
       for (let i = 0; i < particles.length; i++) {
@@ -77,7 +128,7 @@
             const avgY = (particles[i].y + particles[j].y) / 2;
             let fade = 1;
             if (avgY > bottomFadeStart) {
-              fade = Math.max(0, 1 - (avgY - bottomFadeStart) / (h * 0.75 - bottomFadeStart));
+              fade = Math.max(0, 1 - (avgY - bottomFadeStart) / (h * 0.74 - bottomFadeStart));
             }
             const lineAlpha = (1 - dist / 105) * 0.12 * fade;
             if (lineAlpha > 0.005) {
@@ -92,15 +143,28 @@
         }
       }
 
-      // Draw glowing particles with smooth bottom fade
+      // Draw and update glowing particles with pointer repulsion
       for (const p of particles) {
+        // Pointer reaction
+        const dxM = p.x - mouseX;
+        const dyM = p.y - mouseY;
+        const distM = Math.hypot(dxM, dyM);
+        if (distM < 85 && distM > 0) {
+          const force = (1 - distM / 85) * 0.6;
+          p.vx += (dxM / distM) * force;
+          p.vy += (dyM / distM) * force;
+        }
+
+        // Velocity damping
+        p.vx *= 0.985;
+        p.vy *= 0.985;
         p.x += p.vx;
         p.y += p.vy;
         p.phase += 0.02;
 
         let edgeAlpha = 1;
         if (p.y > bottomFadeStart) {
-          edgeAlpha = Math.max(0, 1 - (p.y - bottomFadeStart) / (h * 0.75 - bottomFadeStart));
+          edgeAlpha = Math.max(0, 1 - (p.y - bottomFadeStart) / (h * 0.74 - bottomFadeStart));
         }
 
         p.alpha = (p.baseAlpha + Math.sin(p.phase) * 0.2) * edgeAlpha;
@@ -108,7 +172,7 @@
         if (p.x < -10) p.x = w + 10;
         if (p.x > w + 10) p.x = -10;
         if (p.y < 10) p.vy = Math.abs(p.vy);
-        if (p.y > h * 0.74) p.vy = -Math.abs(p.vy);
+        if (p.y > h * 0.73) p.vy = -Math.abs(p.vy);
 
         if (p.alpha > 0.01) {
           ctx.fillStyle = p.color;
@@ -136,6 +200,7 @@
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener('resize', onResize);
+      window.removeEventListener('keydown', handleKeydown);
       if (heroSectionEl) {
         heroSectionEl.removeEventListener('mousemove', onHeroMouseMove);
       }
@@ -147,14 +212,6 @@
       heroSectionEl.addEventListener('mousemove', onHeroMouseMove, { passive: true });
     }
   });
-
-  function copyCommand() {
-    navigator.clipboard.writeText(installCmd);
-    copyState = 'copied';
-    setTimeout(() => {
-      copyState = 'idle';
-    }, 2000);
-  }
 </script>
 
 <section
@@ -193,7 +250,7 @@
 
     <!-- CTAs & Action buttons with interactive hover glow -->
     <div class="hero-actions">
-      <button onclick={copyCommand} class="btn-mist hero-btn hero-btn-glow">
+      <button onclick={copyCurrentCommand} class="btn-mist hero-btn hero-btn-glow">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
           <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -212,19 +269,48 @@
       </a>
     </div>
 
-    <!-- Command strip preview (Clean, crisp, artifact-free) -->
+    <!-- Interactive Platform Harness Tabs Selector -->
+    <div class="harness-selector font-mono" role="tablist" aria-label="Select Target AI Harness">
+      {#each Object.entries(harnessOptions) as [key, opt]}
+        <button
+          class="harness-tab-btn"
+          class:active={selectedHarness === key}
+          onclick={() => selectedHarness = key as PlatformKey}
+          role="tab"
+          aria-selected={selectedHarness === key}
+        >
+          <span>{opt.name}</span>
+          <span class="harness-badge">{opt.short}</span>
+        </button>
+      {/each}
+    </div>
+
+    <!-- Command strip preview (Clean, crisp, artifact-free with Keyboard shortcut) -->
     <div
       class="terminal-command-well"
-      onclick={copyCommand}
+      onclick={copyCurrentCommand}
       role="button"
       tabindex="0"
-      onkeydown={(e) => e.key === 'Enter' && copyCommand()}
+      onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && copyCurrentCommand()}
+      aria-label="Copy installation command for {harnessOptions[selectedHarness].name}"
     >
       <div class="cmd-content-left">
         <span class="cmd-prompt font-mono">$</span>
-        <span class="cmd-text font-mono">{installCmd}</span>
+        <span class="cmd-text font-mono">{currentCmd}</span>
       </div>
-      <span class="cmd-badge font-mono">{copyState === 'copied' ? 'COPIED' : 'COPY'}</span>
+      <div class="cmd-right-group font-mono">
+        <span class="cmd-shortcut hide-mobile">⌘K</span>
+        <span class="cmd-badge" class:copied={copyState === 'copied'}>
+          {#if copyState === 'copied'}
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>COPIED</span>
+          {:else}
+            <span>COPY</span>
+          {/if}
+        </span>
+      </div>
     </div>
 
     <!-- Raycast Footer Meta Strip -->
@@ -456,7 +542,7 @@
     line-height: 1.65;
     color: var(--color-ash);
     max-width: 600px;
-    margin-bottom: 34px;
+    margin-bottom: 30px;
     animation: cinemaReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
   }
 
@@ -464,7 +550,7 @@
     display: flex;
     align-items: center;
     gap: 14px;
-    margin-bottom: 26px;
+    margin-bottom: 22px;
     width: 100%;
     justify-content: center;
     animation: cinemaReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
@@ -506,7 +592,64 @@
     box-shadow: 0 0 10px rgba(255, 99, 99, 0.3);
   }
 
-  /* Terminal Command Well (Clean, crisp, artifact-free) */
+  /* Harness Selector Pills */
+  .harness-selector {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 14px;
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 2px 4px;
+    animation: cinemaReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+  }
+
+  .harness-selector::-webkit-scrollbar {
+    display: none;
+  }
+
+  .harness-tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--color-ash);
+    font-size: 11.5px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    white-space: nowrap;
+  }
+
+  .harness-tab-btn:hover {
+    color: var(--color-pure-white);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.18);
+    transform: translateY(-1px);
+  }
+
+  .harness-tab-btn.active {
+    background: #17181c;
+    color: var(--color-pure-white);
+    border-color: rgba(255, 99, 99, 0.4);
+    box-shadow: 0 0 16px rgba(255, 99, 99, 0.15);
+  }
+
+  .harness-badge {
+    font-size: 9.5px;
+    color: var(--color-smoke);
+    opacity: 0.8;
+  }
+
+  .harness-tab-btn.active .harness-badge {
+    color: var(--color-coral);
+    opacity: 1;
+  }
+
+  /* Terminal Command Well (Clean, crisp, artifact-free with Keyboard shortcut) */
   .terminal-command-well {
     display: inline-flex;
     align-items: center;
@@ -523,7 +666,7 @@
                 rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset;
     transition: border-color 0.22s ease, background-color 0.22s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease;
     width: 100%;
-    max-width: 440px;
+    max-width: 500px;
     animation: cinemaReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
   }
 
@@ -560,15 +703,39 @@
     white-space: nowrap;
   }
 
+  .cmd-right-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .cmd-shortcut {
+    font-size: 10px;
+    color: var(--color-smoke);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    padding: 2px 5px;
+    background: rgba(255, 255, 255, 0.03);
+  }
+
   .cmd-badge {
     position: relative;
     z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
     color: var(--color-smoke);
-    font-size: 10px;
+    font-size: 10.5px;
     letter-spacing: 0.5px;
     padding-left: 8px;
     border-left: 1px solid var(--color-slate);
-    flex-shrink: 0;
+    transition: color 0.18s ease;
+  }
+
+  .cmd-badge.copied {
+    color: var(--color-coral);
+    font-weight: 600;
   }
 
   /* Cinema Blur-In + Scale Entrance Keyframe */
@@ -605,6 +772,7 @@
     .hero-headline,
     .hero-subheadline,
     .hero-actions,
+    .harness-selector,
     .terminal-command-well,
     .hero-meta-strip,
     .glow-aurora-core,
@@ -630,6 +798,10 @@
 
     .hero-btn {
       width: 100%;
+    }
+
+    .hide-mobile {
+      display: none;
     }
 
     .hero-meta-strip {

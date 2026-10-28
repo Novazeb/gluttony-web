@@ -1,4 +1,51 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+
+  let sectionEl: HTMLElement;
+  let hasAnimated = $state(false);
+  let countDiff = $state(0);
+  let countPrompt = $state(0);
+
+  onMount(() => {
+    if (!sectionEl) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !hasAnimated) {
+          hasAnimated = true;
+          animateCounters();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(sectionEl);
+
+    return () => observer.disconnect();
+  });
+
+  function animateCounters() {
+    const startTime = performance.now();
+    const duration = 1100;
+
+    const step = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(1, elapsed / duration);
+      // easeOutCubic
+      const ease = 1 - Math.pow(1 - progress, 3);
+
+      countDiff = Math.round(78 * ease);
+      countPrompt = Math.round(49 * ease);
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        countDiff = 78;
+        countPrompt = 49;
+      }
+    };
+    requestAnimationFrame(step);
+  }
+
   const benchmarks = [
     {
       scenario: 'Isolated Bug Fix (Pagination Offset)',
@@ -36,16 +83,9 @@
       status: 'PASS',
     },
   ];
-
-  const metrics = [
-    { label: 'Diff Size Reduction', value: '-78%', sub: 'Surgical root-cause fixes' },
-    { label: 'Prompt Weight', value: '-49%', sub: 'High-density directives' },
-    { label: 'Third-Party Bloat', value: '0 Deps', sub: 'Native stdlib first' },
-    { label: 'Breaking Changes', value: '0 Regressions', sub: 'Contract preservation' },
-  ];
 </script>
 
-<section id="benchmark" class="benchmark-section container">
+<section id="benchmark" class="benchmark-section container" bind:this={sectionEl}>
   <!-- Section Header -->
   <div class="section-header">
     <span class="badge-tag">EMPIRICAL PROOF</span>
@@ -55,15 +95,31 @@
     </p>
   </div>
 
-  <!-- Big Stat Metric Cards -->
+  <!-- Big Stat Metric Cards with Smooth Counters -->
   <div class="metrics-grid">
-    {#each metrics as m}
-      <div class="metric-card key-card">
-        <span class="metric-value font-mono">{m.value}</span>
-        <span class="metric-label">{m.label}</span>
-        <span class="metric-sub font-mono">{m.sub}</span>
-      </div>
-    {/each}
+    <div class="metric-card key-card">
+      <span class="metric-value font-mono text-coral">-{countDiff}%</span>
+      <span class="metric-label">Diff Size Reduction</span>
+      <span class="metric-sub font-mono">Surgical root-cause fixes</span>
+    </div>
+
+    <div class="metric-card key-card">
+      <span class="metric-value font-mono text-coral">-{countPrompt}%</span>
+      <span class="metric-label">Prompt Weight</span>
+      <span class="metric-sub font-mono">High-density directives</span>
+    </div>
+
+    <div class="metric-card key-card">
+      <span class="metric-value font-mono text-pure-white">0 Deps</span>
+      <span class="metric-label">Third-Party Bloat</span>
+      <span class="metric-sub font-mono">Native stdlib first</span>
+    </div>
+
+    <div class="metric-card key-card">
+      <span class="metric-value font-mono text-pure-white">0 Regressions</span>
+      <span class="metric-label">Breaking Changes</span>
+      <span class="metric-sub font-mono">Contract preservation</span>
+    </div>
   </div>
 
   <!-- Visual Benchmark Dashboard Infographic Display -->

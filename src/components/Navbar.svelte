@@ -3,8 +3,41 @@
 
   let copied = $state(false);
   let stars = $state<string>('★ Star');
+  let scrollProgress = $state(0);
+  let activeSection = $state('');
+
+  const navItems = [
+    { href: '#cockpit', label: 'Cockpit' },
+    { href: '#diff', label: 'Diff' },
+    { href: '#rules', label: 'Rules' },
+    { href: '#skills', label: 'Skills' },
+    { href: '#setup', label: 'Setup' },
+    { href: '#benchmark', label: 'Benchmark' },
+    { href: '#faq', label: 'FAQ' },
+  ];
 
   onMount(async () => {
+    // Scroll progress & section spy
+    const handleScroll = () => {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      scrollProgress = docHeight > 0 ? Math.min(100, Math.max(0, (window.scrollY / docHeight) * 100)) : 0;
+
+      const sections = ['faq', 'benchmark', 'setup', 'skills', 'rules', 'diff', 'cockpit'];
+      const scrollPos = window.scrollY + 160;
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= scrollPos) {
+          activeSection = id;
+          return;
+        }
+      }
+      activeSection = '';
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    // GitHub stars fetch
     try {
       const res = await fetch('https://api.github.com/repos/Novazeb/gluttony');
       if (res.ok) {
@@ -14,8 +47,12 @@
         }
       }
     } catch {
-      // Fallback to initial state
+      // Fallback
     }
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   });
 
   function copyInstall() {
@@ -29,6 +66,13 @@
 
 <header class="nav-wrapper">
   <nav class="nav-pill">
+    <!-- Real-time Scroll Progress Tracer -->
+    <div
+      class="nav-progress-bar"
+      style="width: {scrollProgress}%;"
+      aria-hidden="true"
+    ></div>
+
     <!-- Brand -->
     <a href="/" class="brand-link">
       <div class="diamond-icon">
@@ -43,13 +87,15 @@
 
     <!-- Nav Links (Desktop) -->
     <div class="nav-links">
-      <a href="#cockpit" class="nav-link">Cockpit</a>
-      <a href="#diff" class="nav-link">Diff</a>
-      <a href="#rules" class="nav-link">Rules</a>
-      <a href="#skills" class="nav-link">Skills</a>
-      <a href="#setup" class="nav-link">Setup</a>
-      <a href="#benchmark" class="nav-link">Benchmark</a>
-      <a href="#faq" class="nav-link">FAQ</a>
+      {#each navItems as item}
+        <a
+          href={item.href}
+          class="nav-link"
+          class:active={activeSection === item.href.slice(1)}
+        >
+          {item.label}
+        </a>
+      {/each}
     </div>
 
     <!-- Actions -->
@@ -94,6 +140,8 @@
   }
 
   .nav-pill {
+    position: relative;
+    overflow: hidden;
     pointer-events: auto;
     display: flex;
     align-items: center;
@@ -108,6 +156,18 @@
     max-width: 980px;
     width: 100%;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset;
+  }
+
+  .nav-progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 1.5px;
+    background: linear-gradient(90deg, #ff6363 0%, #63a1ff 100%);
+    box-shadow: 0 0 10px rgba(255, 99, 99, 0.75);
+    transition: width 0.08s linear;
+    pointer-events: none;
+    z-index: 2;
   }
 
   .brand-link {
@@ -148,6 +208,11 @@
 
   .nav-link:hover {
     color: var(--color-pure-white);
+  }
+
+  .nav-link.active {
+    color: var(--color-pure-white);
+    text-shadow: 0 0 12px rgba(255, 99, 99, 0.45);
   }
 
   .nav-actions {

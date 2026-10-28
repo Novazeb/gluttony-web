@@ -237,7 +237,15 @@ export function transformUser(raw: any): UserDTO {
             <span class="panel-label text-smoke">RAW AI BASELINE ({scenarios[activeScenario].rawLines} LINES)</span>
             <span class="verdict-bad">AI BOILERPLATE & WRAPPERS</span>
           </div>
-          <pre class="code-pre font-mono"><code>{scenarios[activeScenario].rawCode}</code></pre>
+          <div class="diff-code-table font-mono">
+            {#each scenarios[activeScenario].rawCode.split('\n') as line, idx}
+              <div class="diff-line diff-del">
+                <span class="line-num">{idx + 1}</span>
+                <span class="diff-marker">−</span>
+                <span class="line-content">{line}</span>
+              </div>
+            {/each}
+          </div>
         </div>
       {/if}
 
@@ -248,7 +256,15 @@ export function transformUser(raw: any): UserDTO {
             <span class="panel-label text-coral">GLUTTONY MODE ({scenarios[activeScenario].gluttonyLines} LINES)</span>
             <span class="verdict-good">SURGICAL ROOT CAUSE</span>
           </div>
-          <pre class="code-pre font-mono"><code>{scenarios[activeScenario].gluttonyCode}</code></pre>
+          <div class="diff-code-table font-mono">
+            {#each scenarios[activeScenario].gluttonyCode.split('\n') as line, idx}
+              <div class="diff-line diff-add">
+                <span class="line-num">{idx + 1}</span>
+                <span class="diff-marker">+</span>
+                <span class="line-content">{line}</span>
+              </div>
+            {/each}
+          </div>
         </div>
       {/if}
     </div>
@@ -476,14 +492,68 @@ export function transformUser(raw: any): UserDTO {
     letter-spacing: 0.5px;
   }
 
-  .code-pre {
-    font-size: 12px;
+  .diff-code-table {
+    display: flex;
+    flex-direction: column;
+    font-size: 11.5px;
     line-height: 1.6;
-    color: #d1d5db;
     overflow-x: auto;
-    white-space: pre-wrap;
-    word-break: break-word;
-    tab-size: 2;
+  }
+
+  .diff-line {
+    display: flex;
+    align-items: flex-start;
+    padding: 1px 6px;
+    border-radius: 3px;
+    transition: background-color 0.15s ease;
+  }
+
+  .line-num {
+    width: 26px;
+    color: var(--color-smoke);
+    text-align: right;
+    padding-right: 10px;
+    user-select: none;
+    opacity: 0.55;
+    flex-shrink: 0;
+  }
+
+  .diff-marker {
+    width: 14px;
+    text-align: center;
+    flex-shrink: 0;
+    user-select: none;
+    font-weight: 600;
+  }
+
+  .diff-del {
+    background: rgba(255, 95, 86, 0.04);
+  }
+
+  .diff-del .diff-marker {
+    color: #ff5f56;
+  }
+
+  .diff-del:hover {
+    background: rgba(255, 95, 86, 0.08);
+  }
+
+  .diff-add {
+    background: rgba(89, 212, 153, 0.05);
+  }
+
+  .diff-add .diff-marker {
+    color: var(--color-success-green);
+  }
+
+  .diff-add:hover {
+    background: rgba(89, 212, 153, 0.1);
+  }
+
+  .line-content {
+    white-space: pre;
+    color: #d1d5db;
+    overflow-x: visible;
   }
 
   .explanation-footer {

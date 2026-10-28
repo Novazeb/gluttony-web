@@ -317,6 +317,12 @@ img, svg, video, canvas {
   white-space: nowrap;
 }
 
+/* Accessible Keyboard Focus Rings (WCAG AA) */
+:focus-visible {
+  outline: 2px solid var(--color-coral-pulse);
+  outline-offset: 3px;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   :root {
@@ -331,6 +337,12 @@ img, svg, video, canvas {
   .container {
     padding-left: 14px;
     padding-right: 14px;
+  }
+
+  /* Gluttony-UI: 44px minimum touch targets on mobile */
+  .btn-mist,
+  .btn-ghost {
+    min-height: 44px;
   }
 }
 

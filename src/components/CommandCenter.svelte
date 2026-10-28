@@ -1,8 +1,13 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+
   type CommandKey = 'gluttony' | 'refactor' | 'audit' | 'ui';
 
   let activeTab = $state<CommandKey>('gluttony');
   let copied = $state(false);
+  let displayedText = $state('');
+  let isStreaming = $state(false);
+  let streamTimer: number | null = null;
 
   const commandData: Record<CommandKey, {
     cmd: string;
@@ -102,6 +107,43 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
       ],
     },
   };
+
+  function startStream(fullText: string) {
+    if (streamTimer !== null) {
+      cancelAnimationFrame(streamTimer);
+      streamTimer = null;
+    }
+    displayedText = '';
+    isStreaming = true;
+    let idx = 0;
+
+    const step = () => {
+      idx = Math.min(fullText.length, idx + 8);
+      displayedText = fullText.slice(0, idx);
+      if (idx < fullText.length) {
+        streamTimer = requestAnimationFrame(step);
+      } else {
+        isStreaming = false;
+        streamTimer = null;
+      }
+    };
+    streamTimer = requestAnimationFrame(step);
+  }
+
+  function replaySimulation() {
+    startStream(commandData[activeTab].sampleOutput);
+  }
+
+  $effect(() => {
+    const text = commandData[activeTab].sampleOutput;
+    startStream(text);
+    return () => {
+      if (streamTimer !== null) {
+        cancelAnimationFrame(streamTimer);
+        streamTimer = null;
+      }
+    };
+  });
 
   function copyCurrentCmd() {
     navigator.clipboard.writeText(commandData[activeTab].cmd);
@@ -212,7 +254,21 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
       <div class="cockpit-pane terminal-pane">
         <div class="terminal-header font-mono">
           <span class="terminal-tab active">OUTPUT TERMINAL</span>
-          <span class="terminal-status text-coral">● LIVE PROTOCOL</span>
+          <div class="terminal-header-right">
+            <button
+              class="term-rerun-btn font-mono"
+              onclick={replaySimulation}
+              title="Replay terminal stream simulation"
+              aria-label="Replay terminal stream simulation"
+            >
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+              </svg>
+              <span>Replay</span>
+            </button>
+            <span class="terminal-status text-coral">● LIVE PROTOCOL</span>
+          </div>
         </div>
 
         <div class="terminal-content font-mono">
@@ -220,7 +276,30 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
             <span class="term-user">user@gluttony</span>:<span class="term-dir">~/repo</span>$ {commandData[activeTab].cmd}
           </div>
           <div class="term-divider"></div>
-          <pre class="term-body">{commandData[activeTab].sampleOutput}</pre>
+          <div class="term-body font-mono">
+            {#each displayedText.split('\n') as line}
+              {#if line.startsWith('[strict:')}
+                <div class="line-strict font-mono">{line}</div>
+              {:else if line.startsWith('### ')}
+                <div class="line-header font-mono">{line}</div>
+              {:else if /^\d+\.\s/.test(line)}
+                <div class="line-step font-mono">
+                  <span class="step-num">{line.slice(0, 3)}</span><span>{line.slice(3)}</span>
+                </div>
+              {:else if line.startsWith('Diff:') || line.startsWith('Summary:') || line.startsWith('Verified via:')}
+                <div class="line-summary font-mono">{line}</div>
+              {:else if line.startsWith('- ')}
+                <div class="line-bullet font-mono">{line}</div>
+              {:else if line.trim() === ''}
+                <div class="line-spacer"></div>
+              {:else}
+                <div class="line-default font-mono">{line}</div>
+              {/if}
+            {/each}
+            {#if isStreaming}
+              <span class="term-cursor font-mono" aria-hidden="true">▋</span>
+            {/if}
+          </div>
         </div>
       </div>
     </div>
@@ -532,6 +611,33 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
     white-space: nowrap;
   }
 
+  .terminal-header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .term-rerun-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-ash);
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+
+  .term-rerun-btn:hover {
+    color: var(--color-pure-white);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.22);
+    transform: translateY(-1px);
+  }
+
   .terminal-status {
     font-size: 10px;
     letter-spacing: 0.5px;
@@ -570,11 +676,77 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
   }
 
   .term-body {
-    white-space: pre-wrap;
-    word-break: break-word;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
     color: #c9cbcf;
     font-family: var(--font-mono);
     max-width: 100%;
+    min-height: 220px;
+  }
+
+  .line-strict {
+    color: #fbbf24;
+    font-weight: 600;
+    background: rgba(251, 191, 36, 0.08);
+    padding: 2px 6px;
+    border-radius: 4px;
+    border-left: 2px solid #fbbf24;
+    margin-bottom: 4px;
+  }
+
+  .line-header {
+    color: var(--color-pure-white);
+    font-weight: 600;
+    margin-top: 6px;
+    letter-spacing: 0.3px;
+  }
+
+  .line-step {
+    display: flex;
+    gap: 4px;
+    color: #e5e7eb;
+  }
+
+  .step-num {
+    color: var(--color-coral-pulse);
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .line-summary {
+    color: #4ade80;
+    font-weight: 500;
+    margin-top: 6px;
+    padding-top: 4px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.08);
+  }
+
+  .line-bullet {
+    color: #d1d5db;
+    padding-left: 6px;
+  }
+
+  .line-spacer {
+    height: 6px;
+  }
+
+  .line-default {
+    color: #c9cbcf;
+  }
+
+  .term-cursor {
+    color: var(--color-coral-pulse);
+    font-size: 13px;
+    display: inline-block;
+    animation: blinkCursor 0.8s steps(2, start) infinite;
+    margin-top: 4px;
+  }
+
+  @keyframes blinkCursor {
+    to {
+      visibility: hidden;
+    }
   }
 
   @media (max-width: 860px) {

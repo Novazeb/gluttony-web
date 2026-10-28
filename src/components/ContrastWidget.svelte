@@ -45,6 +45,10 @@
   let passLarge = $derived(ratio >= 3.0);
   let passAAA = $derived(ratio >= 7.0);
 
+  let gaugeProgress = $derived(Math.min(1, Math.max(0, (ratio - 1) / 20)));
+  let dashOffset = $derived(263.89 * (1 - gaugeProgress));
+  let gaugeColor = $derived(ratio >= 7.0 ? '#4ade80' : ratio >= 4.5 ? '#ff6363' : '#ff5f56');
+
   const presets = [
     { name: 'White on Void', fg: '#FFFFFF', bg: '#040506' },
     { name: 'Ash on Void', fg: '#9C9C9D', bg: '#040506' },
@@ -134,26 +138,61 @@
         </div>
       </div>
 
-      <!-- Preview Box -->
+      <!-- Preview & Gauge Column -->
       <div class="preview-column">
-        <div
-          class="live-preview-box"
-          style="background-color: {bgColor}; color: {fgColor};"
-        >
-          <span class="preview-tag font-mono">LIVE PREVIEW</span>
-          <h4 class="preview-headline">Minimal Sufficient Engineering</h4>
-          <p class="preview-body">
-            Enforcing authentic typography and contrast for human clarity.
-          </p>
+        <div class="preview-gauge-row">
+          <div
+            class="live-preview-box"
+            style="background-color: {bgColor}; color: {fgColor};"
+          >
+            <span class="preview-tag font-mono">LIVE PREVIEW</span>
+            <h4 class="preview-headline">Minimal Sufficient Engineering</h4>
+            <p class="preview-body">
+              Enforcing authentic typography and contrast for human clarity.
+            </p>
+          </div>
+
+          <!-- Circular Arc Meter Gauge -->
+          <div class="gauge-card">
+            <div class="gauge-svg-wrap">
+              <svg width="92" height="92" viewBox="0 0 100 100" class="gauge-svg" aria-label="Contrast gauge {ratio} to 1">
+                <!-- Track -->
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="42"
+                  fill="none"
+                  stroke="rgba(255, 255, 255, 0.08)"
+                  stroke-width="7"
+                />
+                <!-- Active Sweep Arc -->
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="42"
+                  fill="none"
+                  stroke={gaugeColor}
+                  stroke-width="7"
+                  stroke-linecap="round"
+                  stroke-dasharray="263.89"
+                  stroke-dashoffset={dashOffset}
+                  transform="rotate(-90 50 50)"
+                  style="transition: stroke-dashoffset 0.35s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.25s ease;"
+                />
+              </svg>
+              <div class="gauge-center-text">
+                <span class="gauge-value font-mono" style="color: {gaugeColor}">{ratio}</span>
+                <span class="gauge-unit font-mono">:1</span>
+              </div>
+            </div>
+            <div class="gauge-footer-tag font-mono" style="color: {gaugeColor}">
+              {ratio >= 7.0 ? 'AAA PASS' : ratio >= 4.5 ? 'AA PASS' : 'CONTRAST FAIL'}
+            </div>
+          </div>
         </div>
 
         <!-- Metric Badges -->
         <div class="results-grid">
-          <div class="result-tile">
-            <span class="res-label font-mono">CONTRAST RATIO</span>
-            <span class="res-value font-mono text-coral">{ratio}:1</span>
-          </div>
-
           <div class="result-tile">
             <span class="res-label font-mono">NORMAL TEXT (&ge; 4.5:1)</span>
             <span class="status-badge font-mono" class:pass={passNormal} class:fail={!passNormal}>
@@ -348,8 +387,15 @@
     min-width: 0;
   }
 
+  .preview-gauge-row {
+    display: flex;
+    align-items: stretch;
+    gap: 14px;
+    width: 100%;
+  }
+
   .live-preview-box {
-    padding: 18px;
+    padding: 16px 18px;
     border-radius: var(--radius-cards);
     border: 1px solid var(--color-border);
     min-height: 120px;
@@ -359,6 +405,8 @@
     gap: 6px;
     transition: background-color 0.2s ease, color 0.2s ease;
     box-sizing: border-box;
+    flex-grow: 1;
+    min-width: 0;
   }
 
   .preview-tag {
@@ -368,19 +416,79 @@
   }
 
   .preview-headline {
-    font-size: clamp(16px, 3.5vw, 19px);
+    font-size: clamp(15px, 3.2vw, 18px);
     font-weight: 500;
   }
 
   .preview-body {
-    font-size: 13px;
+    font-size: 12.5px;
     opacity: 0.9;
     line-height: 1.4;
   }
 
+  /* Gauge Card */
+  .gauge-card {
+    background-color: var(--color-obsidian);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-cards);
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-shrink: 0;
+    min-width: 130px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .gauge-svg-wrap {
+    position: relative;
+    width: 92px;
+    height: 92px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .gauge-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(0deg);
+  }
+
+  .gauge-center-text {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    z-index: 1;
+  }
+
+  .gauge-value {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  .gauge-unit {
+    font-size: 12px;
+    color: var(--color-smoke);
+    font-weight: 500;
+  }
+
+  .gauge-footer-tag {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+  }
+
   .results-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     width: 100%;
     box-sizing: border-box;
@@ -406,11 +514,6 @@
     white-space: nowrap;
   }
 
-  .res-value {
-    font-size: clamp(17px, 3.5vw, 20px);
-    font-weight: 600;
-  }
-
   .status-badge {
     font-size: 11px;
     font-weight: 500;
@@ -434,9 +537,18 @@
     }
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 540px) {
+    .preview-gauge-row {
+      flex-direction: column;
+    }
+
+    .gauge-card {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
     .results-grid {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
     }
   }
 </style>
