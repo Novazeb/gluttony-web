@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import CeknetWidget from './CeknetWidget.svelte';
 
   type PlatformKey = 'claude' | 'cursor' | 'antigravity' | 'codex' | 'windsurf';
 
@@ -227,6 +228,11 @@
     <div class="mesh-grid"></div>
   </div>
 
+  <!-- Ceknet Internet Quality Checker (Kotak dengan sudut tak tajam di sebelah kanan atas) -->
+  <div class="hero-ceknet-anchor">
+    <CeknetWidget />
+  </div>
+
   <div class="hero-content container">
     <!-- Eyebrow Pill -->
     <div class="eyebrow-container">
@@ -333,6 +339,7 @@
     position: relative;
     min-height: 82vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding-top: 135px;
@@ -340,6 +347,15 @@
     width: 100%;
     max-width: 100vw;
     background-color: var(--color-void-black);
+  }
+
+  /* Ceknet Widget Anchor: Positioned at top-right of the landing page */
+  .hero-ceknet-anchor {
+    position: absolute;
+    top: 86px;
+    right: 28px;
+    z-index: 25;
+    animation: cinemaReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
   }
 
   /* Atmosphere: Self-contained layer */
@@ -782,6 +798,18 @@
       opacity: 1 !important;
       transform: none !important;
       filter: none !important;
+    }
+  }
+
+  @media (max-width: 899px) {
+    .hero-ceknet-anchor {
+      position: relative;
+      top: auto;
+      right: auto;
+      margin: 0 auto 18px auto;
+      display: flex;
+      justify-content: center;
+      width: 100%;
     }
   }
 
