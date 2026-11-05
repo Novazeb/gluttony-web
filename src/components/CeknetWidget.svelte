@@ -190,7 +190,8 @@
     flex-direction: column;
     gap: 8px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65), rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset;
-    width: 218px;
+    width: 216px;
+    max-width: calc(100vw - 28px);
     box-sizing: border-box;
     transition: border-color 0.2s ease, transform 0.2s ease;
   }

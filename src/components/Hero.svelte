@@ -352,9 +352,9 @@
   /* Ceknet Widget Anchor: Positioned at top-right of the landing page */
   .hero-ceknet-anchor {
     position: absolute;
-    top: 86px;
-    right: 28px;
-    z-index: 25;
+    top: 18px;
+    right: 24px;
+    z-index: 30;
     animation: cinemaReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
   }
 
@@ -801,22 +801,26 @@
     }
   }
 
-  @media (max-width: 899px) {
+  @media (max-width: 1099px) {
+    .hero-section {
+      padding-top: 155px;
+    }
+
     .hero-ceknet-anchor {
-      position: relative;
-      top: auto;
-      right: auto;
-      margin: 0 auto 18px auto;
-      display: flex;
-      justify-content: center;
-      width: 100%;
+      top: 74px;
+      right: 18px;
     }
   }
 
   @media (max-width: 768px) {
     .hero-section {
-      padding-top: 100px;
+      padding-top: 195px;
       padding-bottom: 40px;
+    }
+
+    .hero-ceknet-anchor {
+      top: 62px;
+      right: 14px;
     }
 
     .hero-actions {
