@@ -180,25 +180,30 @@
 
 <style>
   .ceknet-widget {
-    background-color: rgba(10, 11, 14, 0.88);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid var(--color-border);
-    border-radius: 12px;
+    background-color: rgba(9, 10, 13, 0.76);
+    backdrop-filter: blur(28px) saturate(190%);
+    -webkit-backdrop-filter: blur(28px) saturate(190%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
     padding: 10px 14px;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65), rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset;
+    box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.75), rgba(255, 255, 255, 0.08) 0px 1px 0px 0px inset;
     width: 216px;
     max-width: calc(100vw - 28px);
     box-sizing: border-box;
-    transition: border-color 0.2s ease, transform 0.2s ease;
+    transition: border-color 0.22s var(--spring-smooth), transform 0.22s var(--spring-smooth), box-shadow 0.22s ease;
   }
 
   .ceknet-widget:hover {
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.25);
     transform: translateY(-2px);
+  }
+
+  .ceknet-widget:active {
+    transform: scale(0.985);
+    transition: transform 90ms var(--spring-press);
   }
 
   .widget-header {
@@ -380,6 +385,11 @@
     cursor: pointer;
     min-height: 28px;
     transition: all 0.18s ease;
+  }
+
+  .action-btn:active {
+    transform: scale(0.96);
+    transition: transform 90ms var(--spring-press);
   }
 
   .recheck-btn {

@@ -516,12 +516,13 @@
     white-space: nowrap;
   }
 
-  /* Majestic Holographic Shimmer Headline */
+  /* Majestic Holographic Shimmer Headline with Apple Design Optical Tracking */
   .hero-headline {
     font-size: clamp(34px, 6.5vw, 62px);
     font-weight: 500;
-    line-height: 1.12;
-    letter-spacing: -0.6px;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    font-optical-sizing: auto;
     background: linear-gradient(
       115deg,
       #ffffff 0%,
@@ -555,7 +556,8 @@
   .hero-subheadline {
     font-size: clamp(14px, 2.5vw, 16.5px);
     font-weight: 400;
-    line-height: 1.65;
+    line-height: 1.6;
+    letter-spacing: -0.008em;
     color: var(--color-ash);
     max-width: 600px;
     margin-bottom: 30px;

@@ -147,15 +147,15 @@
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    background-color: rgba(7, 8, 10, 0.88);
-    backdrop-filter: blur(48px);
-    -webkit-backdrop-filter: blur(48px);
-    border: 1px solid var(--color-border);
+    background-color: rgba(9, 10, 13, 0.72);
+    backdrop-filter: blur(28px) saturate(190%);
+    -webkit-backdrop-filter: blur(28px) saturate(190%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: var(--radius-buttons);
     padding: 6px 14px;
     max-width: 980px;
     width: 100%;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset;
+    box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.8), rgba(255, 255, 255, 0.08) 0px 1px 0px 0px inset;
   }
 
   .nav-progress-bar {
