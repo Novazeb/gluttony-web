@@ -10,10 +10,10 @@
         <div class="brand-line">
           <div class="diamond-icon">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-              <path d="M12 2L22 12L12 22L2 12L12 2Z" fill="#ff6363" />
+              <path d="M12 2L22 12L12 22L2 12L12 2Z" fill="#ff9f30" />
             </svg>
           </div>
-          <span class="brand-text">Gluttony</span>
+          <span class="brand-text font-mono">Gluttony</span>
           <span class="badge-tag">v2.2.0</span>
         </div>
         <p class="brand-desc">
@@ -65,7 +65,7 @@
     padding-top: 48px;
     padding-bottom: 48px;
     border-top: 1px solid var(--color-border);
-    background-color: #030405;
+    background-color: var(--color-void-black);
     width: 100%;
     box-sizing: border-box;
   }
@@ -104,7 +104,7 @@
 
   .brand-text {
     font-size: 14.5px;
-    font-weight: 500;
+    font-weight: 700;
     color: var(--color-pure-white);
   }
 
@@ -121,19 +121,20 @@
   }
 
   .footer-link {
-    font-size: 12.5px;
+    font-family: var(--font-mono);
+    font-size: 12px;
     color: var(--color-ash);
     text-decoration: none;
-    transition: color 0.15s ease;
+    transition: color 150ms ease;
   }
 
   .footer-link:hover {
-    color: var(--color-pure-white);
+    color: var(--color-coral-pulse);
   }
 
   .footer-divider {
     height: 1px;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: var(--color-border);
   }
 
   /* Raycast Signature Pipe-Separated Meta Strip */

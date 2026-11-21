@@ -75,7 +75,7 @@
 <style>
   .site-root {
     position: relative;
-    min-height: 100vh;
+    min-height: 100dvh;
     background-color: var(--color-void-black);
     color: var(--color-pure-white);
     display: flex;
@@ -89,6 +89,7 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    gap: 48px;
+    gap: clamp(4rem, 8vw, 8rem);
+    padding-bottom: 4rem;
   }
 </style>

@@ -308,6 +308,8 @@ export function transformUser(raw: any): UserDTO {
 
   .diff-card {
     background-color: var(--color-ink);
+    border-radius: 0px;
+    border: 1px solid var(--color-border);
     overflow: hidden;
     width: 100%;
     box-sizing: border-box;
@@ -319,7 +321,7 @@ export function transformUser(raw: any): UserDTO {
     justify-content: space-between;
     padding: 12px 18px;
     border-bottom: 1px solid var(--color-border);
-    background-color: #050608;
+    background-color: var(--color-void-black);
     gap: 12px;
     flex-wrap: wrap;
   }
@@ -340,25 +342,24 @@ export function transformUser(raw: any): UserDTO {
     background: transparent;
     border: 1px solid transparent;
     color: var(--color-ash);
+    font-family: var(--font-mono);
     font-size: 11.5px;
     padding: 6px 12px;
-    border-radius: 6px;
+    border-radius: 0px;
     cursor: pointer;
     white-space: nowrap;
-    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 150ms ease;
   }
 
   .scenario-btn:hover {
     color: var(--color-pure-white);
-    background-color: rgba(255, 255, 255, 0.06);
-    transform: translateY(-1px);
+    background-color: rgba(28, 43, 58, 0.4);
   }
 
   .scenario-btn.active {
-    background-color: #17181c;
-    color: var(--color-pure-white);
-    border-color: rgba(255, 99, 99, 0.35);
-    box-shadow: 0 0 16px rgba(255, 99, 99, 0.12), var(--shadow-key-subtle);
+    background-color: #132234;
+    color: var(--color-coral-pulse);
+    border-color: var(--color-coral-pulse);
   }
 
   .view-switcher {
@@ -367,7 +368,7 @@ export function transformUser(raw: any): UserDTO {
     gap: 4px;
     background-color: var(--color-obsidian);
     padding: 3px;
-    border-radius: 6px;
+    border-radius: 0px;
     border: 1px solid var(--color-border);
   }
 
@@ -375,15 +376,16 @@ export function transformUser(raw: any): UserDTO {
     background: transparent;
     border: none;
     color: var(--color-ash);
+    font-family: var(--font-mono);
     font-size: 11px;
-    padding: 3px 8px;
-    border-radius: 4px;
+    padding: 4px 8px;
+    border-radius: 0px;
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: all 150ms ease;
   }
 
   .view-btn.active {
-    background-color: #27282b;
+    background-color: #1c2b3a;
     color: var(--color-pure-white);
   }
 
@@ -392,8 +394,8 @@ export function transformUser(raw: any): UserDTO {
     align-items: center;
     justify-content: space-between;
     padding: 12px 18px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    background-color: #08090c;
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-ink);
     gap: 12px;
     flex-wrap: wrap;
   }
@@ -406,7 +408,7 @@ export function transformUser(raw: any): UserDTO {
   }
 
   .scenario-name {
-    font-weight: 500;
+    font-weight: 600;
   }
 
   .impact-right {
@@ -419,34 +421,24 @@ export function transformUser(raw: any): UserDTO {
     font-size: 11.5px;
     font-weight: 600;
     padding: 3px 10px;
-    background: rgba(255, 99, 99, 0.1);
-    border: 1px solid rgba(255, 99, 99, 0.3);
-    border-radius: 6px;
-    animation: metricGlow 3s ease-in-out infinite;
-  }
-
-  @keyframes metricGlow {
-    0%, 100% {
-      box-shadow: 0 0 8px rgba(255, 99, 99, 0.15);
-      border-color: rgba(255, 99, 99, 0.25);
-    }
-    50% {
-      box-shadow: 0 0 18px rgba(255, 99, 99, 0.35);
-      border-color: rgba(255, 99, 99, 0.55);
-    }
+    background: rgba(255, 159, 48, 0.12);
+    border: 1px solid var(--color-coral-pulse);
+    color: var(--color-coral-pulse);
+    border-radius: 0px;
   }
 
   .copy-btn {
     padding: 4px 10px;
     font-size: 11px;
     min-height: 30px;
+    border-radius: 0px;
   }
 
   /* Code panels */
   .code-panels {
     display: grid;
     grid-template-columns: 1fr;
-    background-color: #040506;
+    background-color: var(--color-obsidian);
   }
 
   .code-panels.split-view {

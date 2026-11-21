@@ -342,41 +342,41 @@ Precedence: Safety Gates > Correctness & Contracts > Lean Code > Communication.
     gap: 8px;
     background: transparent;
     border: 1px solid transparent;
-    border-radius: 8px;
+    border-radius: 0px;
     padding: 8px 14px;
     color: var(--color-ash);
     cursor: pointer;
-    font-size: 13px;
+    font-family: var(--font-mono);
+    font-size: 12px;
     font-weight: 500;
-    transition: all 0.15s ease;
+    transition: all 150ms ease;
     white-space: nowrap;
   }
 
   .tab-btn:hover {
     color: var(--color-pure-white);
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(28, 43, 58, 0.4);
   }
 
   .tab-btn.active {
-    background: #0d0e12;
-    color: var(--color-pure-white);
-    border-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    background: #132234;
+    color: var(--color-coral-pulse);
+    border-color: var(--color-coral-pulse);
   }
 
   .tab-badge {
     font-size: 9.5px;
     padding: 2px 6px;
-    border-radius: 4px;
-    background: rgba(255, 255, 255, 0.06);
-    color: #8e9099;
+    border-radius: 0px;
+    background: rgba(28, 43, 58, 0.6);
+    color: var(--color-ash);
     letter-spacing: 0.4px;
   }
 
   .tab-btn.active .tab-badge {
-    background: rgba(255, 99, 99, 0.15);
-    color: var(--color-coral);
-    border: 1px solid rgba(255, 99, 99, 0.25);
+    background: rgba(255, 159, 48, 0.15);
+    color: var(--color-coral-pulse);
+    border: 1px solid var(--color-coral-pulse);
   }
 
   /* Panel */
@@ -435,9 +435,9 @@ Precedence: Safety Gates > Correctness & Contracts > Lean Code > Communication.
     display: flex;
     align-items: center;
     gap: 12px;
-    background: #030405;
+    background: var(--color-obsidian);
     border: 1px solid var(--color-border);
-    border-radius: 8px;
+    border-radius: 0px;
     padding: 10px 14px;
     overflow-x: auto;
     max-width: 100%;
@@ -448,10 +448,11 @@ Precedence: Safety Gates > Correctness & Contracts > Lean Code > Communication.
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.6px;
-    color: var(--color-coral);
-    background: rgba(255, 99, 99, 0.1);
+    color: var(--color-coral-pulse);
+    background: rgba(255, 159, 48, 0.12);
+    border: 1px solid var(--color-coral-pulse);
     padding: 2px 6px;
-    border-radius: 4px;
+    border-radius: 0px;
     flex-shrink: 0;
   }
 
@@ -464,9 +465,9 @@ Precedence: Safety Gates > Correctness & Contracts > Lean Code > Communication.
 
   /* File Box */
   .file-box {
-    background: #030405;
+    background: var(--color-obsidian);
     border: 1px solid var(--color-border);
-    border-radius: 8px;
+    border-radius: 0px;
     overflow: hidden;
   }
 
@@ -476,7 +477,7 @@ Precedence: Safety Gates > Correctness & Contracts > Lean Code > Communication.
     justify-content: space-between;
     gap: 12px;
     padding: 8px 14px;
-    background: #08090d;
+    background: var(--color-ink);
     border-bottom: 1px solid var(--color-border);
   }
 
@@ -498,22 +499,21 @@ Precedence: Safety Gates > Correctness & Contracts > Lean Code > Communication.
   }
 
   .copy-file-btn {
-    background: transparent;
+    background: var(--color-obsidian);
     border: 1px solid var(--color-border);
-    border-radius: 6px;
+    border-radius: 0px;
     color: var(--color-ash);
     font-size: 11px;
     padding: 4px 10px;
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: all 150ms ease;
     white-space: nowrap;
     flex-shrink: 0;
   }
 
   .copy-file-btn:hover {
     color: var(--color-pure-white);
-    border-color: rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--color-coral-pulse);
   }
 
   .file-code {
@@ -536,9 +536,9 @@ Precedence: Safety Gates > Correctness & Contracts > Lean Code > Communication.
   }
 
   .meta-card {
-    background: rgba(13, 14, 18, 0.6);
+    background: var(--color-ink);
     border: 1px solid var(--color-border);
-    border-radius: 8px;
+    border-radius: 0px;
     padding: 14px;
     display: flex;
     flex-direction: column;

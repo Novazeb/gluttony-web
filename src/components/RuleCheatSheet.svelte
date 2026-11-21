@@ -342,6 +342,8 @@
     gap: 16px;
     flex-wrap: wrap;
     background-color: var(--color-ink);
+    border: 1px solid var(--color-border);
+    border-radius: 0px;
   }
 
   .category-pills {
@@ -361,24 +363,24 @@
     background: transparent;
     border: 1px solid transparent;
     color: var(--color-ash);
+    font-family: var(--font-mono);
     font-size: 11px;
     padding: 5px 9px;
-    border-radius: 6px;
+    border-radius: 0px;
     cursor: pointer;
     white-space: nowrap;
-    transition: all 0.15s ease;
+    transition: all 150ms ease;
   }
 
   .cat-pill:hover {
     color: var(--color-pure-white);
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(28, 43, 58, 0.4);
   }
 
   .cat-pill.active {
-    background-color: #1b1c1e;
-    color: var(--color-pure-white);
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: var(--shadow-key-subtle);
+    background-color: #132234;
+    color: var(--color-coral-pulse);
+    border-color: var(--color-coral-pulse);
   }
 
   .search-input-wrap {
@@ -399,6 +401,9 @@
     width: 100%;
     font-size: 12px;
     padding: 6px 10px;
+    border-radius: 0px;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-obsidian);
   }
 
   .rules-list {
@@ -412,16 +417,18 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    transition: border-color 0.2s ease, background-color 0.2s ease;
+    border-radius: 0px;
+    border: 1px solid var(--color-border);
+    transition: border-color 150ms ease, background-color 150ms ease;
   }
 
   .rule-card:hover {
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: var(--color-ash);
   }
 
   .rule-card.expanded {
-    border-color: rgba(255, 99, 99, 0.35);
-    background-color: #080a0d;
+    border-color: var(--color-coral-pulse);
+    background-color: #0c1826;
   }
 
   .rule-row {
@@ -527,8 +534,8 @@
     margin-top: 10px;
     padding: 12px 14px;
     background-color: var(--color-obsidian);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--radius-inputs);
+    border: 1px solid var(--color-border);
+    border-radius: 0px;
     display: flex;
     flex-direction: column;
     gap: 6px;
