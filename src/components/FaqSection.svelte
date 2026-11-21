@@ -204,9 +204,9 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    background: #060709;
+    background: var(--color-obsidian);
     border: 1px solid var(--color-border);
-    border-radius: 8px;
+    border-radius: 0px;
     padding: 10px 14px;
     color: var(--color-ash);
   }
@@ -221,7 +221,7 @@
   }
 
   .search-input::placeholder {
-    color: #555761;
+    color: var(--color-smoke);
   }
 
   .category-pills {
@@ -231,25 +231,25 @@
   }
 
   .cat-pill {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--color-ink);
     border: 1px solid var(--color-border);
-    border-radius: 6px;
+    border-radius: 0px;
     padding: 4px 12px;
     color: var(--color-ash);
     font-size: 11px;
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: all 150ms ease;
   }
 
   .cat-pill:hover {
     color: var(--color-pure-white);
-    background: rgba(255, 255, 255, 0.07);
+    background: rgba(28, 43, 58, 0.4);
   }
 
   .cat-pill.active {
-    background: rgba(255, 99, 99, 0.12);
-    color: var(--color-coral);
-    border-color: rgba(255, 99, 99, 0.3);
+    background: #132234;
+    color: var(--color-coral-pulse);
+    border-color: var(--color-coral-pulse);
   }
 
   /* List */
@@ -260,17 +260,16 @@
   }
 
   .faq-card {
-    background: #060709;
+    background: var(--color-ink);
     border: 1px solid var(--color-border);
-    border-radius: 10px;
+    border-radius: 0px;
     overflow: hidden;
     padding: 0;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: border-color 150ms ease;
   }
 
   .faq-card.open {
-    border-color: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    border-color: var(--color-coral-pulse);
   }
 
   .faq-header {
@@ -300,16 +299,17 @@
     font-weight: 600;
     letter-spacing: 0.5px;
     padding: 2px 7px;
-    border-radius: 4px;
-    background: rgba(255, 255, 255, 0.06);
-    color: #9da0aa;
+    border-radius: 0px;
+    background: var(--color-obsidian);
+    border: 1px solid var(--color-border);
+    color: var(--color-ash);
     text-transform: uppercase;
   }
 
   .faq-question {
     font-size: 14.5px;
-    font-weight: 500;
-    color: #e5e7eb;
+    font-weight: 600;
+    color: var(--color-pure-white);
     line-height: 1.4;
   }
 
@@ -319,14 +319,15 @@
     justify-content: center;
     width: 28px;
     height: 28px;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.04);
+    border-radius: 0px;
+    background: var(--color-obsidian);
+    border: 1px solid var(--color-border);
     color: var(--color-ash);
     flex-shrink: 0;
   }
 
   .chevron-icon {
-    transition: transform 0.2s ease;
+    transition: transform 150ms ease;
   }
 
   .chevron-icon.rotated {
@@ -338,14 +339,14 @@
     display: flex;
     flex-direction: column;
     gap: 14px;
-    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    border-top: 1px solid var(--color-border);
     padding-top: 16px;
   }
 
   .faq-answer {
     font-size: 13.5px;
     line-height: 1.6;
-    color: #abb0ba;
+    color: var(--color-ash);
     margin: 0;
   }
 
@@ -353,22 +354,22 @@
     display: flex;
     align-items: flex-start;
     gap: 8px;
-    background: #020304;
-    border: 1px solid rgba(255, 99, 99, 0.15);
-    border-left: 3px solid var(--color-coral);
-    border-radius: 6px;
+    background: var(--color-obsidian);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-coral-pulse);
+    border-radius: 0px;
     padding: 10px 14px;
     font-size: 12px;
   }
 
   .takeaway-label {
-    color: var(--color-coral);
+    color: var(--color-coral-pulse);
     font-weight: 600;
     flex-shrink: 0;
   }
 
   .takeaway-text {
-    color: #d1d5db;
+    color: var(--color-pure-white);
   }
 
   .no-results {
@@ -376,9 +377,9 @@
     text-align: center;
     color: var(--color-ash);
     font-size: 13px;
-    background: #060709;
+    background: var(--color-ink);
     border: 1px dashed var(--color-border);
-    border-radius: 8px;
+    border-radius: 0px;
   }
 
   @media (max-width: 768px) {

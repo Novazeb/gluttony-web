@@ -100,8 +100,8 @@
     };
     window.addEventListener('resize', onResize);
 
-    const colors = ['#ff6363', '#63a1ff', '#ffffff', '#ff8b8b'];
-    const pCount = Math.min(36, Math.floor((w * h) / 32000));
+    const colors = ['#38bdf8', '#ff9f30', '#f0f0f0', '#00ff9d'];
+    const pCount = Math.min(32, Math.floor((w * h) / 36000));
     const particles = Array.from({ length: pCount }, () => ({
       x: Math.random() * w,
       y: Math.random() * (h * 0.7) + 20,
@@ -133,7 +133,7 @@
             }
             const lineAlpha = (1 - dist / 105) * 0.12 * fade;
             if (lineAlpha > 0.005) {
-              ctx.strokeStyle = `rgba(255, 99, 99, ${lineAlpha})`;
+              ctx.strokeStyle = `rgba(56, 189, 248, ${lineAlpha})`;
               ctx.lineWidth = 0.6;
               ctx.beginPath();
               ctx.moveTo(particles[i].x, particles[i].y);
@@ -219,12 +219,9 @@
   bind:this={heroSectionEl}
   class="hero-section"
 >
-  <!-- Atmospheric backdrop: Self-contained Raycast aurora that naturally dissolves before reaching container edges -->
+  <!-- Atmospheric blueprint wireframe grid -->
   <div class="hero-atmosphere" aria-hidden="true">
     <canvas bind:this={canvasEl} class="hero-canvas"></canvas>
-    <div class="hero-cursor-spotlight"></div>
-    <div class="glow-aurora-core"></div>
-    <div class="glow-aurora-accent"></div>
     <div class="mesh-grid"></div>
   </div>
 
@@ -234,16 +231,16 @@
   </div>
 
   <div class="hero-content container">
-    <!-- Eyebrow Pill -->
+    <!-- Eyebrow Tag -->
     <div class="eyebrow-container">
       <div class="eyebrow-pill">
         <span class="pulse-dot"></span>
-        <span class="eyebrow-text font-mono">GLUTTONY v2.2.0 · AGENT PROTOCOL</span>
+        <span class="eyebrow-text font-mono">GLUTTONY v2.2.0 · SCHEMATIC PROTOCOL</span>
       </div>
     </div>
 
-    <!-- 60px / 500 signature headline with holographic text shimmer -->
-    <h1 class="hero-headline">
+    <!-- Technical Display Headline (JetBrains Mono 700) -->
+    <h1 class="hero-headline font-mono">
       Maximum signal, zero fluff.<br />
       Relentless execution.
     </h1>
@@ -337,7 +334,7 @@
 <style>
   .hero-section {
     position: relative;
-    min-height: 82vh;
+    min-height: 80dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -355,10 +352,9 @@
     top: 18px;
     right: 24px;
     z-index: 30;
-    animation: cinemaReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
   }
 
-  /* Atmosphere: Self-contained layer */
+  /* Atmosphere: Blueprint Grid Backdrop */
   .hero-atmosphere {
     position: absolute;
     inset: 0;
@@ -374,92 +370,19 @@
     height: 100%;
     pointer-events: none;
     z-index: 1;
-    opacity: 0.85;
+    opacity: 0.6;
   }
 
-  /* Interactive Cursor Spotlight that smoothly follows mouse */
-  .hero-cursor-spotlight {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    background: radial-gradient(
-      520px circle at var(--mouse-x, 50%) var(--mouse-y, 35%),
-      rgba(255, 99, 99, 0.08),
-      rgba(99, 161, 255, 0.03) 45%,
-      transparent 70%
-    );
-    pointer-events: none;
-  }
-
-  /* Centered Raycast Aurora Core: completely dissolves to transparent at 70%, never touches any border */
-  .glow-aurora-core {
-    position: absolute;
-    top: 26%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 820px;
-    max-width: 90vw;
-    height: 440px;
-    background: radial-gradient(
-      ellipse 60% 50% at 50% 50%,
-      rgba(4, 63, 150, 0.38) 0%,
-      rgba(255, 99, 99, 0.16) 35%,
-      rgba(4, 5, 6, 0) 70%
-    );
-    pointer-events: none;
-    animation: auroraBreathe 12s ease-in-out infinite alternate;
-  }
-
-  /* Centered Raycast Aurora Accent */
-  .glow-aurora-accent {
-    position: absolute;
-    top: 32%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 520px;
-    max-width: 80vw;
-    height: 180px;
-    background: radial-gradient(
-      ellipse 55% 50% at 50% 50%,
-      rgba(255, 99, 99, 0.28) 0%,
-      rgba(99, 161, 255, 0.1) 40%,
-      rgba(4, 5, 6, 0) 70%
-    );
-    pointer-events: none;
-    animation: auroraPulse 8s ease-in-out infinite alternate;
-  }
-
-  @keyframes auroraBreathe {
-    0% {
-      transform: translate(-50%, -50%) scale(0.96);
-      opacity: 0.85;
-    }
-    100% {
-      transform: translate(-50%, -48%) scale(1.05);
-      opacity: 1;
-    }
-  }
-
-  @keyframes auroraPulse {
-    0% {
-      transform: translate(-50%, -50%) scale(0.92);
-      opacity: 0.7;
-    }
-    100% {
-      transform: translate(-50%, -50%) scale(1.08);
-      opacity: 1;
-    }
-  }
-
-  /* Mesh Grid: Naturally fades to transparent in all directions well before reaching edges */
+  /* Mesh Grid: Blueprint technical grid */
   .mesh-grid {
     position: absolute;
     inset: 0;
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                      linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    background-size: 40px 40px;
-    mask-image: radial-gradient(ellipse 50% 45% at 50% 35%, black 20%, transparent 65%);
-    -webkit-mask-image: radial-gradient(ellipse 50% 45% at 50% 35%, black 20%, transparent 65%);
+    background-image: 
+      linear-gradient(to right, rgba(28, 43, 58, 0.7) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(28, 43, 58, 0.7) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse 65% 55% at 50% 40%, black 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 65% 55% at 50% 40%, black 30%, transparent 80%);
   }
 
   .hero-content {
@@ -473,154 +396,121 @@
   }
 
   .eyebrow-container {
-    margin-bottom: 22px;
+    margin-bottom: 20px;
     max-width: 100%;
-    animation: cinemaReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
   }
 
   .eyebrow-pill {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background-color: rgba(7, 8, 10, 0.8);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 99, 99, 0.25);
-    padding: 5px 14px;
-    border-radius: var(--radius-pills);
-    box-shadow: 0 0 20px rgba(255, 99, 99, 0.12), var(--shadow-key-subtle);
+    background-color: var(--color-ink);
+    border: 1px solid var(--color-border);
+    padding: 6px 14px;
+    border-radius: 0px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     max-width: 90vw;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: border-color 150ms ease;
   }
 
   .eyebrow-pill:hover {
-    border-color: rgba(255, 99, 99, 0.5);
-    box-shadow: 0 0 28px rgba(255, 99, 99, 0.22);
+    border-color: var(--color-coral-pulse);
   }
 
   .pulse-dot {
     width: 6px;
     height: 6px;
-    border-radius: 50%;
+    border-radius: 0px;
     background-color: var(--color-coral-pulse);
-    box-shadow: 0 0 8px var(--color-coral-pulse);
+    box-shadow: 0 0 6px var(--color-coral-pulse);
     flex-shrink: 0;
   }
 
   .eyebrow-text {
     font-size: 11px;
-    color: var(--color-mist);
-    letter-spacing: 0.8px;
+    font-weight: 500;
+    color: var(--color-ash);
+    letter-spacing: 0.08em;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  /* Majestic Holographic Shimmer Headline with Apple Design Optical Tracking */
+  /* Engineering Blueprint Display Headline */
   .hero-headline {
-    font-size: clamp(34px, 6.5vw, 62px);
-    font-weight: 500;
-    line-height: 1.08;
-    letter-spacing: -0.03em;
-    font-optical-sizing: auto;
-    background: linear-gradient(
-      115deg,
-      #ffffff 0%,
-      #ffffff 38%,
-      #ff7878 54%,
-      #8ab9ff 72%,
-      #ffffff 88%,
-      #ffffff 100%
-    );
-    background-size: 250% 100%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: textShimmer 9s cubic-bezier(0.4, 0, 0.2, 1) infinite,
-               cinemaReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
-    margin-bottom: 22px;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--color-pure-white);
+    margin-bottom: 20px;
     max-width: 920px;
   }
 
-  @keyframes textShimmer {
-    0%, 20% {
-      background-position: 0% 50%;
-    }
-    60%, 80% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-
   .hero-subheadline {
-    font-size: clamp(14px, 2.5vw, 16.5px);
+    font-size: clamp(0.95rem, 2vw, 1.05rem);
     font-weight: 400;
     line-height: 1.6;
-    letter-spacing: -0.008em;
+    letter-spacing: -0.01em;
     color: var(--color-ash);
-    max-width: 600px;
-    margin-bottom: 30px;
-    animation: cinemaReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+    max-width: 64ch;
+    margin-bottom: 28px;
   }
 
   .hero-actions {
     display: flex;
     align-items: center;
     gap: 14px;
-    margin-bottom: 22px;
+    margin-bottom: 24px;
     width: 100%;
     justify-content: center;
-    animation: cinemaReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
   }
 
   .hero-btn {
     padding: 10px 20px;
-    font-size: 13.5px;
-    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, background-color 0.22s ease;
+    font-size: 0.875rem;
+    border-radius: 0px;
+    transition: background-color 150ms ease, transform 150ms ease;
   }
 
   .hero-btn:hover {
-    transform: translateY(-2px);
+    transform: translateY(-1px);
+  }
+
+  .hero-btn:active {
+    transform: translateY(1px);
   }
 
   .hero-btn-glow {
     position: relative;
-    box-shadow: 0 0 24px rgba(255, 255, 255, 0.2), var(--shadow-btn-lift);
-  }
-
-  .hero-btn-glow:hover {
-    box-shadow: 0 0 32px rgba(255, 255, 255, 0.35), 0 8px 24px rgba(0, 0, 0, 0.4);
+    box-shadow: var(--shadow-btn-lift);
   }
 
   .hero-star-pill {
-    background: rgba(255, 99, 99, 0.15);
-    border: 1px solid rgba(255, 99, 99, 0.25);
-    color: var(--color-coral);
+    background: rgba(255, 159, 48, 0.12);
+    border: 1px solid var(--color-border);
+    color: var(--color-coral-pulse);
     padding: 2px 7px;
-    border-radius: 9999px;
+    border-radius: 0px;
     font-size: 11px;
     letter-spacing: 0.3px;
-    transition: all 0.2s ease;
+    transition: all 150ms ease;
   }
 
   .hero-btn:hover .hero-star-pill {
-    background: rgba(255, 99, 99, 0.25);
-    border-color: rgba(255, 99, 99, 0.45);
-    box-shadow: 0 0 10px rgba(255, 99, 99, 0.3);
+    border-color: var(--color-coral-pulse);
   }
 
-  /* Harness Selector Pills */
+  /* Harness Selector: 0px sharp rectangular tabs */
   .harness-selector {
     display: flex;
     align-items: center;
     gap: 6px;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
     max-width: 100%;
     overflow-x: auto;
     scrollbar-width: none;
     padding: 2px 4px;
-    animation: cinemaReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
   }
 
   .harness-selector::-webkit-scrollbar {
@@ -631,68 +521,58 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--color-ink);
+    border: 1px solid var(--color-border);
     color: var(--color-ash);
     font-size: 11.5px;
-    padding: 5px 10px;
-    border-radius: 6px;
+    padding: 6px 12px;
+    border-radius: 0px;
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 150ms ease;
     white-space: nowrap;
   }
 
   .harness-tab-btn:hover {
     color: var(--color-pure-white);
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.18);
-    transform: translateY(-1px);
+    border-color: var(--color-ash);
   }
 
   .harness-tab-btn.active {
-    background: #17181c;
-    color: var(--color-pure-white);
-    border-color: rgba(255, 99, 99, 0.4);
-    box-shadow: 0 0 16px rgba(255, 99, 99, 0.15);
+    background: #132234;
+    color: var(--color-coral-pulse);
+    border-color: var(--color-coral-pulse);
   }
 
   .harness-badge {
     font-size: 9.5px;
     color: var(--color-smoke);
-    opacity: 0.8;
   }
 
   .harness-tab-btn.active .harness-badge {
-    color: var(--color-coral);
-    opacity: 1;
+    color: var(--color-coral-pulse);
   }
 
-  /* Terminal Command Well (Clean, crisp, artifact-free with Keyboard shortcut) */
+  /* Terminal Command Well: Blueprint Drafting Container */
   .terminal-command-well {
     display: inline-flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
     background-color: var(--color-obsidian);
-    border: 1px solid rgba(255, 99, 99, 0.28);
-    border-radius: var(--radius-inputs);
+    border: 1px solid var(--color-border);
+    border-radius: 0px;
     padding: 10px 14px;
     cursor: pointer;
     margin-bottom: 32px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 
-                0 0 16px rgba(255, 99, 99, 0.1),
-                rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset;
-    transition: border-color 0.22s ease, background-color 0.22s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    transition: border-color 150ms ease, background-color 150ms ease;
     width: 100%;
-    max-width: 500px;
-    animation: cinemaReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+    max-width: 520px;
   }
 
   .terminal-command-well:hover {
-    border-color: rgba(255, 99, 99, 0.55);
-    background-color: #16171b;
-    transform: translateY(-2px);
-    box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.7), 0 0 24px rgba(255, 99, 99, 0.22);
+    border-color: var(--color-coral-pulse);
+    background-color: #0c1826;
   }
 
   .cmd-content-left {
@@ -708,7 +588,7 @@
   }
 
   .cmd-prompt {
-    color: var(--color-coral-pulse);
+    color: var(--color-success-green);
     font-size: 13px;
     flex-shrink: 0;
   }
@@ -731,10 +611,10 @@
   .cmd-shortcut {
     font-size: 10px;
     color: var(--color-smoke);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 4px;
-    padding: 2px 5px;
-    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-border);
+    border-radius: 0px;
+    padding: 2px 6px;
+    background: var(--color-ink);
   }
 
   .cmd-badge {
@@ -747,27 +627,13 @@
     font-size: 10.5px;
     letter-spacing: 0.5px;
     padding-left: 8px;
-    border-left: 1px solid var(--color-slate);
-    transition: color 0.18s ease;
+    border-left: 1px solid var(--color-border);
+    transition: color 150ms ease;
   }
 
   .cmd-badge.copied {
-    color: var(--color-coral);
+    color: var(--color-success-green);
     font-weight: 600;
-  }
-
-  /* Cinema Blur-In + Scale Entrance Keyframe */
-  @keyframes cinemaReveal {
-    from {
-      opacity: 0;
-      filter: blur(14px);
-      transform: translateY(28px) scale(0.96);
-    }
-    to {
-      opacity: 1;
-      filter: blur(0px);
-      transform: translateY(0) scale(1);
-    }
   }
 
   .hero-meta-strip {
@@ -775,32 +641,14 @@
     align-items: center;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
-    font-size: 11.5px;
+    gap: 12px;
+    font-size: 11px;
     color: var(--color-smoke);
-    animation: cinemaReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
+    letter-spacing: 0.05em;
   }
 
   .divider {
-    color: var(--color-slate);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .eyebrow-container,
-    .hero-headline,
-    .hero-subheadline,
-    .hero-actions,
-    .harness-selector,
-    .terminal-command-well,
-    .hero-meta-strip,
-    .glow-aurora-core,
-    .glow-aurora-accent,
-    .hero-canvas {
-      animation: none !important;
-      opacity: 1 !important;
-      transform: none !important;
-      filter: none !important;
-    }
+    color: var(--color-border);
   }
 
   @media (max-width: 1099px) {

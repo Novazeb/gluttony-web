@@ -159,18 +159,17 @@
     flex-direction: column;
     gap: 10px;
     background-color: var(--color-ink);
+    border-radius: 0px;
+    border: 1px solid var(--color-border);
     cursor: pointer;
-    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), 
-                border-color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 150ms ease, border-color 150ms ease;
     box-sizing: border-box;
     min-width: 0;
   }
 
   .platform-tile:hover {
-    transform: translateY(-3px);
-    border-color: rgba(255, 99, 99, 0.3);
-    box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.7), rgba(255, 99, 99, 0.08) 0 0 16px;
+    transform: translateY(-2px);
+    border-color: var(--color-coral-pulse);
   }
 
   .tile-top {
@@ -182,7 +181,7 @@
 
   .platform-name {
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 700;
     color: var(--color-pure-white);
   }
 
@@ -196,21 +195,21 @@
   .platform-desc {
     font-size: 13px;
     color: var(--color-ash);
-    line-height: 1.45;
+    line-height: 1.5;
   }
 
   .tile-install {
     margin-top: auto;
     background-color: var(--color-obsidian);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: var(--radius-inputs);
+    border: 1px solid var(--color-border);
+    border-radius: 0px;
     padding: 6px 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
     font-size: 11px;
-    color: var(--color-mist);
+    color: var(--color-pure-white);
     min-width: 0;
   }
 

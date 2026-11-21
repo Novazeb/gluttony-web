@@ -262,7 +262,7 @@
     justify-content: space-between;
     padding: 12px 18px;
     border-bottom: 1px solid var(--color-border);
-    background-color: #050608;
+    background-color: var(--color-void-black);
     gap: 8px;
     flex-wrap: wrap;
   }
@@ -280,7 +280,7 @@
 
   .image-container {
     padding: 12px;
-    background-color: var(--color-void-black);
+    background-color: var(--color-obsidian);
     display: flex;
     justify-content: center;
     overflow: hidden;
@@ -290,13 +290,15 @@
     width: 100%;
     max-width: 1080px;
     height: auto;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0px;
+    border: 1px solid var(--color-border);
   }
 
   /* Table */
   .table-container {
     background-color: var(--color-ink);
+    border: 1px solid var(--color-border);
+    border-radius: 0px;
     overflow: hidden;
     width: 100%;
     box-sizing: border-box;
@@ -305,7 +307,7 @@
   .table-header {
     padding: 12px 18px;
     border-bottom: 1px solid var(--color-border);
-    background-color: #050608;
+    background-color: var(--color-void-black);
     display: flex;
     align-items: center;
     justify-content: space-between;

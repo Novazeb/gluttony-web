@@ -354,16 +354,16 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
     background: linear-gradient(
       90deg,
       transparent 0%,
-      rgba(255, 99, 99, 0) 15%,
-      #ff6363 45%,
-      #63a1ff 70%,
+      rgba(255, 159, 48, 0) 15%,
+      #ff9f30 50%,
+      #38bdf8 80%,
       transparent 100%
     );
     background-size: 200% 100%;
-    animation: scannerSweep 5.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation: scannerSweep 5.5s linear infinite;
     z-index: 10;
     pointer-events: none;
-    box-shadow: 0 0 12px rgba(255, 99, 99, 0.6);
+    box-shadow: 0 0 8px rgba(255, 159, 48, 0.5);
   }
 
   @keyframes scannerSweep {
@@ -387,7 +387,7 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
     justify-content: space-between;
     padding: 10px 16px;
     border-bottom: 1px solid var(--color-border);
-    background-color: #050608;
+    background-color: var(--color-void-black);
     gap: 8px;
   }
 
@@ -399,14 +399,14 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
   }
 
   .dot {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    border-radius: 0px;
   }
 
-  .dot.close { background-color: #ff5f56; }
-  .dot.minimize { background-color: #ffbd2e; }
-  .dot.expand { background-color: #27c93f; }
+  .dot.close { background-color: var(--color-coral-pulse); }
+  .dot.minimize { background-color: var(--color-ash); }
+  .dot.expand { background-color: var(--color-success-green); }
 
   .titlebar-center {
     overflow: hidden;
@@ -428,7 +428,7 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
     flex-shrink: 0;
   }
 
-  /* Raycast command search bar */
+  /* Command search bar */
   .command-bar-wrapper {
     padding: 12px 16px;
     border-bottom: 1px solid var(--color-border);
@@ -443,7 +443,7 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
     gap: 10px;
     background-color: var(--color-obsidian);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-inputs);
+    border-radius: 0px;
     padding: 6px 10px;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px 0px inset;
     width: 100%;
@@ -478,24 +478,22 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
     font-family: var(--font-mono);
     font-size: 11.5px;
     padding: 5px 10px;
-    border-radius: 6px;
+    border-radius: 0px;
     cursor: pointer;
     white-space: nowrap;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 150ms ease;
     flex-shrink: 0;
   }
 
   .cmd-pill:hover {
     color: var(--color-pure-white);
-    background-color: rgba(255, 255, 255, 0.06);
-    transform: translateY(-1px);
+    background-color: rgba(28, 43, 58, 0.4);
   }
 
   .cmd-pill.active {
-    background-color: #15161a;
-    color: var(--color-pure-white);
-    border-color: rgba(255, 99, 99, 0.35);
-    box-shadow: 0 0 16px rgba(255, 99, 99, 0.12), var(--shadow-key-subtle);
+    background-color: #132234;
+    color: var(--color-coral-pulse);
+    border-color: var(--color-coral-pulse);
   }
 
   .cmd-pill-slash {
@@ -586,7 +584,7 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
 
   /* Terminal pane */
   .terminal-pane {
-    background-color: #050608;
+    background-color: var(--color-obsidian);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -598,7 +596,7 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
     justify-content: space-between;
     font-size: 11px;
     padding-bottom: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid var(--color-border);
     margin-bottom: 14px;
     gap: 8px;
   }
@@ -621,25 +619,24 @@ Verified via: node script/contrast.js "#ffffff" "#111214" --target=normal`,
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--color-ink);
+    border: 1px solid var(--color-border);
     color: var(--color-ash);
     font-size: 10px;
     padding: 3px 8px;
-    border-radius: 4px;
+    border-radius: 0px;
     cursor: pointer;
-    transition: all 0.18s ease;
+    transition: all 150ms ease;
   }
 
   .term-rerun-btn:hover {
     color: var(--color-pure-white);
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.22);
-    transform: translateY(-1px);
+    border-color: var(--color-coral-pulse);
   }
 
   .terminal-status {
     font-size: 10px;
+    color: var(--color-success-green);
     letter-spacing: 0.5px;
     flex-shrink: 0;
   }

@@ -185,27 +185,25 @@
     gap: 8px;
   }
 
-  /* Raycast 99999px Circular Icon Container */
+  /* Sharp 0px Square Technical Icon Container */
   .icon-circle {
-    width: 40px;
-    height: 40px;
-    border-radius: var(--radius-circle);
+    width: 38px;
+    height: 38px;
+    border-radius: 0px;
     background-color: var(--color-obsidian);
     border: 1px solid var(--color-border);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--color-mist);
-    box-shadow: rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset;
     flex-shrink: 0;
-    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 150ms ease;
   }
 
   .skill-card:hover .icon-circle {
-    border-color: rgba(255, 99, 99, 0.4);
+    border-color: var(--color-coral-pulse);
     color: var(--color-coral-pulse);
-    box-shadow: 0 0 16px rgba(255, 99, 99, 0.2);
-    transform: scale(1.05);
+    transform: translateY(-1px);
   }
 
   .card-badges {
@@ -286,13 +284,12 @@
     gap: 8px;
     background-color: var(--color-obsidian);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-inputs);
+    border-radius: 0px;
     padding: 8px 12px;
     color: var(--color-pure-white);
     font-size: 12px;
     cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset;
-    transition: all 0.15s ease;
+    transition: all 150ms ease;
     box-sizing: border-box;
     min-width: 0;
   }
@@ -305,8 +302,8 @@
   }
 
   .cmd-pill-strip:hover {
-    border-color: rgba(255, 255, 255, 0.25);
-    background-color: #17181c;
+    border-color: var(--color-coral-pulse);
+    background-color: #0c1826;
   }
 
   .copy-tag {

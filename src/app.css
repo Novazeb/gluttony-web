@@ -1,43 +1,44 @@
 :root {
+  /* Engineering Blueprint Schematic Tokens (desaign.md) */
   /* Colors */
-  --color-void-black: #040506;
-  --color-ink: #07080a;
-  --color-obsidian: #111214;
-  --color-graphite: #1b1c1e;
-  --color-smoke: #6a6b6c;
-  --color-ash: #9c9c9d;
-  --color-mist: #e6e6e6;
-  --color-iron: #454647;
-  --color-slate: #2f3031;
-  --color-border: #363739;
-  --color-border-subtle: rgba(255, 255, 255, 0.07);
-  --color-pure-white: #ffffff;
-  --color-coral-pulse: #ff6363;
-  --color-ember-hush: #452324;
-  --color-electric-sky: #63a1ff;
-  --color-cobalt-edge: #143ca3;
-  --color-deep-space: #02193b;
-  --color-info-blue: #56c2ff;
-  --color-success-green: #59d499;
+  --color-void-black: #0b1623; /* Primary background surface */
+  --color-ink: #0e1b2a;        /* Card surface */
+  --color-obsidian: #07101a;   /* Recessed well / code background */
+  --color-graphite: #132234;   /* Surface badge / border mid */
+  --color-smoke: #5c708a;      /* Schematic annotation */
+  --color-ash: #8b9bb4;        /* Dim text / muted blueprint gray */
+  --color-mist: #ff9f30;       /* Primary Accent (CTAs, buttons) */
+  --color-iron: #0b1623;       /* Dark button label */
+  --color-slate: #1c2b3a;      /* Technical grid line */
+  --color-border: #1c2b3a;     /* High-contrast schematic line */
+  --color-border-subtle: rgba(28, 43, 58, 0.8);
+  --color-pure-white: #f0f0f0; /* Primary text */
+  --color-coral-pulse: #ff9f30;/* Accent orange / warning */
+  --color-ember-hush: #261b14;
+  --color-electric-sky: #38bdf8;/* Technical cyan line */
+  --color-cobalt-edge: #153258;
+  --color-deep-space: #07101a;
+  --color-info-blue: #38bdf8;
+  --color-success-green: #00ff9d;/* Success states / positive indicator */
 
   /* Surfaces */
-  --surface-canvas: #040506;
-  --surface-card: #07080a;
-  --surface-recessed: #111214;
-  --surface-badge: #1b1c1e;
-  --surface-accent-tint: #452324;
+  --surface-canvas: #0b1623;
+  --surface-card: #0e1b2a;
+  --surface-recessed: #07101a;
+  --surface-badge: #132234;
+  --surface-accent-tint: rgba(255, 159, 48, 0.12);
 
-  /* Fonts */
-  --font-inter: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", 'Inter', "Segoe UI", Roboto, sans-serif;
-  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  /* Typography: JetBrains Mono across all elements */
+  --font-inter: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-  /* Apple Design Springs & Motion Curves */
-  --spring-smooth: cubic-bezier(0.16, 1, 0.3, 1);
-  --spring-responsive: cubic-bezier(0.25, 1, 0.5, 1);
-  --spring-press: cubic-bezier(0.32, 1, 0.23, 1);
+  /* Static-first transition timings (150ms instant feedback) */
+  --spring-smooth: cubic-bezier(0, 0, 0.2, 1);
+  --spring-responsive: cubic-bezier(0, 0, 0.2, 1);
+  --spring-press: cubic-bezier(0, 0, 0.2, 1);
 
   /* Spacing */
-  --page-max-width: 1200px;
+  --page-max-width: 1280px;
   --spacing-8: 8px;
   --spacing-16: 16px;
   --spacing-24: 24px;
@@ -49,19 +50,19 @@
   --spacing-96: 96px;
   --spacing-120: 120px;
 
-  /* Radii */
-  --radius-buttons: 8px;
-  --radius-badges: 6px;
-  --radius-inputs: 8px;
-  --radius-cards: 16px;
-  --radius-largecards: 20px;
-  --radius-pills: 9999px;
-  --radius-circle: 99999px;
+  /* Shapes: Strict 0px Corner Radius (Blueprint Architecture) */
+  --radius-buttons: 0px;
+  --radius-badges: 0px;
+  --radius-inputs: 0px;
+  --radius-cards: 0px;
+  --radius-largecards: 0px;
+  --radius-pills: 0px;
+  --radius-circle: 0px;
 
-  /* Shadows (Raycast 'key' treatment) */
-  --shadow-key: rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset, rgba(255, 255, 255, 0.22) 0px 0px 0px 1px, rgba(0, 0, 0, 0.2) 0px -1px 0px 0px inset;
-  --shadow-key-subtle: rgba(255, 255, 255, 0.05) 0px 1px 0px 0px inset, rgba(255, 255, 255, 0.12) 0px 0px 0px 1px, rgba(0, 0, 0, 0.3) 0px -1px 0px 0px inset;
-  --shadow-btn-lift: rgba(0, 0, 0, 0.03) 0px 7px 3px 0px, rgba(0, 0, 0, 0.25) 0px 4px 4px 0px;
+  /* Technical Blueprint Elevation & Depth */
+  --shadow-key: 0 2px 12px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(28, 43, 58, 0.8);
+  --shadow-key-subtle: 0 1px 6px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(28, 43, 58, 0.5);
+  --shadow-btn-lift: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 *, *::before, *::after {
@@ -83,11 +84,16 @@ html {
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100dvh;
   background-color: var(--color-void-black);
+  background-image: 
+    linear-gradient(to right, rgba(28, 43, 58, 0.55) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(28, 43, 58, 0.55) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-attachment: fixed;
   overflow-x: hidden;
   max-width: 100vw;
-  line-height: 1.5;
+  line-height: 1.6;
   word-break: break-word;
   overflow-wrap: break-word;
 }
@@ -97,26 +103,46 @@ img, svg, video, canvas {
   height: auto;
 }
 
-/* Custom scrollbar */
+/* Blueprint Technical Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: var(--color-void-black);
+  border-left: 1px solid var(--color-border);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--color-slate);
-  border-radius: 3px;
+  border-radius: 0;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-iron);
+  background: var(--color-mist);
 }
 
 /* Selection */
 ::selection {
-  background: rgba(255, 99, 99, 0.25);
-  color: #ffffff;
+  background: rgba(255, 159, 48, 0.3);
+  color: #f0f0f0;
+}
+
+/* Typography Scale */
+h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-pure-white);
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-pure-white);
+}
+
+p, span, div {
+  font-family: var(--font-inter);
 }
 
 /* Base utility classes */
@@ -144,96 +170,60 @@ img, svg, video, canvas {
   max-width: var(--page-max-width);
   margin-left: auto;
   margin-right: auto;
-  padding-left: var(--spacing-24);
-  padding-right: var(--spacing-24);
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
   width: 100%;
 }
 
-/* Raycast tactile key card with dynamic radial cursor spotlight */
+/* Blueprint Key Card: Sharp 0px corners, high-contrast schematic borders */
 .key-card {
   position: relative;
   background-color: var(--color-ink);
-  border-radius: var(--radius-cards);
+  border-radius: 0px;
   border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-key);
-  transition: border-color 0.24s cubic-bezier(0.16, 1, 0.3, 1), 
-              transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), 
-              box-shadow 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+  transition: border-color 150ms ease, transform 150ms ease;
   max-width: 100%;
   overflow: hidden;
 }
 
-.key-card::before {
-  content: '';
+/* Technical Blueprint Corner Crosshairs */
+.key-card::after {
+  content: '+';
   position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(
-    380px circle at var(--card-mouse-x, -999px) var(--card-mouse-y, -999px),
-    rgba(255, 99, 99, 0.12),
-    rgba(99, 161, 255, 0.05) 50%,
-    transparent 80%
-  );
-  opacity: 0;
-  transition: opacity 0.35s ease;
+  top: 4px;
+  right: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-smoke);
+  opacity: 0.6;
   pointer-events: none;
-  z-index: 1;
-}
-
-.key-card:hover::before {
-  opacity: 1;
 }
 
 .key-card:hover {
-  border-color: rgba(255, 99, 99, 0.36);
-  transform: translateY(-3px) scale(1.003);
-  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.8), 
-              0 0 24px -4px rgba(255, 99, 99, 0.14),
-              rgba(255, 255, 255, 0.08) 0px 1px 0px 0px inset;
+  border-color: var(--color-coral-pulse);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 12px rgba(255, 159, 48, 0.15);
 }
 
-/* Radar pulse animation for status dots */
+/* Status indicator dot */
 .pulse-dot {
   width: 6px;
   height: 6px;
-  border-radius: 50%;
+  border-radius: 0px;
   background-color: var(--color-coral-pulse);
-  box-shadow: 0 0 8px var(--color-coral-pulse);
+  box-shadow: 0 0 6px var(--color-coral-pulse);
   flex-shrink: 0;
-  animation: pulsePing 2.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-@keyframes pulsePing {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 0 6px var(--color-coral-pulse);
-    opacity: 0.9;
-  }
-  50% {
-    transform: scale(1.18);
-    box-shadow: 0 0 14px var(--color-coral-pulse), 0 0 20px rgba(255, 99, 99, 0.25);
-    opacity: 1;
-  }
-}
-
-/* Majestic cinema scroll reveal utilities */
+/* Static-first utilitarian approach (No entry animation delay) */
 .reveal-on-scroll {
-  opacity: 0;
-  filter: blur(12px);
-  transform: translateY(32px) scale(0.975);
-  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), 
-              filter 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, filter, transform;
-}
-
-.reveal-on-scroll.is-revealed {
   opacity: 1;
-  filter: blur(0);
-  transform: translateY(0) scale(1);
+  filter: none;
+  transform: none;
 }
 
-/* Raycast neutral Mist button */
+/* Primary Button: Sharp 0px edges, #ff9f30 fill, #0b1623 text, instant hover/press */
 .btn-mist {
   display: inline-flex;
   align-items: center;
@@ -241,73 +231,73 @@ img, svg, video, canvas {
   gap: var(--spacing-8);
   background-color: var(--color-mist);
   color: var(--color-iron);
-  font-family: var(--font-inter);
-  font-size: 13px;
-  font-weight: 500;
-  padding: 8px 14px;
-  border-radius: var(--radius-buttons);
-  border: none;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 0px;
+  border: 1px solid var(--color-mist);
   cursor: pointer;
   text-decoration: none;
   box-shadow: var(--shadow-btn-lift);
-  transition: background-color 0.18s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease;
+  transition: background-color 150ms ease, transform 150ms ease;
   min-height: 40px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .btn-mist:hover {
-  background-color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow: 0 0 24px rgba(255, 255, 255, 0.3), 0 8px 20px rgba(0, 0, 0, 0.4);
+  background-color: #e68a1f;
+  border-color: #e68a1f;
+  transform: translateY(-1px);
 }
 
 .btn-mist:active {
-  transform: scale(0.972);
-  transition: transform 90ms var(--spring-press);
+  transform: translateY(1px);
 }
 
-/* Ghost dark button */
+/* Secondary / Ghost Button: Outline variant with 1.5px border */
 .btn-ghost {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--spacing-8);
-  background-color: rgba(255, 255, 255, 0.04);
-  color: var(--color-ash);
-  font-family: var(--font-inter);
-  font-size: 13px;
+  background-color: transparent;
+  color: var(--color-pure-white);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
   font-weight: 500;
-  padding: 8px 14px;
-  border-radius: var(--radius-buttons);
-  border: 1px solid var(--color-border);
+  padding: 10px 16px;
+  border-radius: 0px;
+  border: 1.5px solid var(--color-border);
   cursor: pointer;
   text-decoration: none;
-  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 150ms ease;
   min-height: 40px;
+  letter-spacing: 0.03em;
 }
 
 .btn-ghost:hover {
   color: var(--color-pure-white);
-  border-color: rgba(255, 99, 99, 0.4);
-  background-color: rgba(255, 99, 99, 0.08);
-  transform: translateY(-2px);
-  box-shadow: 0 0 20px rgba(255, 99, 99, 0.18), 0 6px 16px rgba(0, 0, 0, 0.3);
+  border-color: var(--color-coral-pulse);
+  background-color: rgba(28, 43, 58, 0.45);
 }
 
 .btn-ghost:active {
-  transform: scale(0.972);
-  transition: transform 90ms var(--spring-press);
+  transform: translateY(1px);
 }
 
-/* Inset Input / Recessed Well */
+/* Inset Input / Recessed Well: 0px sharp */
 .recessed-well {
   background-color: var(--color-obsidian);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-inputs);
+  border: 1px solid var(--color-border);
+  border-radius: 0px;
   padding: 8px 12px;
   color: var(--color-pure-white);
+  font-family: var(--font-mono);
 }
 
-/* Badge tag */
+/* Badge tag: Technical monospace label */
 .badge-tag {
   display: inline-flex;
   align-items: center;
@@ -315,19 +305,19 @@ img, svg, video, canvas {
   background-color: var(--color-graphite);
   color: var(--color-pure-white);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 2px 6px;
-  border-radius: var(--radius-badges);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: 0px;
+  border: 1px solid var(--color-border);
   white-space: nowrap;
 }
 
-/* Accessible Keyboard Focus Rings (WCAG AA) */
+/* Accessible Keyboard Focus Rings: 2px accent offset */
 :focus-visible {
   outline: 2px solid var(--color-coral-pulse);
-  outline-offset: 3px;
+  outline-offset: 2px;
 }
 
 /* Responsive adjustments */
@@ -338,15 +328,13 @@ img, svg, video, canvas {
     --spacing-48: 24px;
     --spacing-32: 20px;
     --spacing-24: 16px;
-    --radius-cards: 12px;
   }
 
   .container {
-    padding-left: 14px;
-    padding-right: 14px;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
-  /* Gluttony-UI: 44px minimum touch targets on mobile */
   .btn-mist,
   .btn-ghost {
     min-height: 44px;
@@ -358,37 +346,7 @@ img, svg, video, canvas {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  .reveal-on-scroll {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}
-
-/* Apple Design: Reduced Transparency */
-@media (prefers-reduced-transparency: reduce) {
-  .nav-pill,
-  .ceknet-widget,
-  .eyebrow-pill,
-  .key-card {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    background-color: var(--color-ink) !important;
-  }
-}
-
-/* Apple Design: High Contrast Mode */
-@media (prefers-contrast: more) {
-  .nav-pill,
-  .key-card,
-  .ceknet-widget,
-  .btn-ghost,
-  .recessed-well {
-    border-color: rgba(255, 255, 255, 0.45) !important;
+    animation: none !important;
+    transition: none !important;
   }
 }

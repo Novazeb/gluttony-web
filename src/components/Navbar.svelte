@@ -77,11 +77,11 @@
     <a href="/" class="brand-link">
       <div class="diamond-icon">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-          <path d="M12 2L22 12L12 22L2 12L12 2Z" fill="#ff6363" />
-          <path d="M12 6L18 12L12 18L6 12L12 6Z" fill="#040506" />
+          <path d="M12 2L22 12L12 22L2 12L12 2Z" fill="#ff9f30" />
+          <path d="M12 6L18 12L12 18L6 12L12 6Z" fill="#0b1623" />
         </svg>
       </div>
-      <span class="brand-name">Gluttony</span>
+      <span class="brand-name font-mono">Gluttony</span>
       <span class="badge-tag hide-mobile">v2.2.0</span>
     </a>
 
@@ -147,24 +147,24 @@
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    background-color: rgba(9, 10, 13, 0.72);
-    backdrop-filter: blur(28px) saturate(190%);
-    -webkit-backdrop-filter: blur(28px) saturate(190%);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: var(--radius-buttons);
+    background-color: rgba(11, 22, 35, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--color-border);
+    border-radius: 0px;
     padding: 6px 14px;
     max-width: 980px;
     width: 100%;
-    box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.8), rgba(255, 255, 255, 0.08) 0px 1px 0px 0px inset;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
   }
 
   .nav-progress-bar {
     position: absolute;
     bottom: 0;
     left: 0;
-    height: 1.5px;
-    background: linear-gradient(90deg, #ff6363 0%, #63a1ff 100%);
-    box-shadow: 0 0 10px rgba(255, 99, 99, 0.75);
+    height: 2px;
+    background: var(--color-coral-pulse);
+    box-shadow: 0 0 8px rgba(255, 159, 48, 0.6);
     transition: width 0.08s linear;
     pointer-events: none;
     z-index: 2;
@@ -187,8 +187,8 @@
 
   .brand-name {
     font-size: 13.5px;
-    font-weight: 500;
-    letter-spacing: -0.2px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
   }
 
   .nav-links {
@@ -199,11 +199,13 @@
 
   .nav-link {
     color: var(--color-ash);
+    font-family: var(--font-mono);
     font-size: 12.5px;
     font-weight: 500;
     text-decoration: none;
-    transition: color 0.15s ease;
+    transition: color 150ms ease;
     white-space: nowrap;
+    padding: 4px 0;
   }
 
   .nav-link:hover {
@@ -211,8 +213,8 @@
   }
 
   .nav-link.active {
-    color: var(--color-pure-white);
-    text-shadow: 0 0 12px rgba(255, 99, 99, 0.45);
+    color: var(--color-coral-pulse);
+    border-bottom: 2px solid var(--color-coral-pulse);
   }
 
   .nav-actions {
@@ -226,19 +228,18 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--color-ink);
     border: 1px solid var(--color-border);
-    border-radius: 6px;
+    border-radius: 0px;
     padding: 5px 9px;
     color: var(--color-ash);
     text-decoration: none;
-    transition: all 0.15s ease;
+    transition: all 150ms ease;
   }
 
   .github-pill-link:hover {
     color: var(--color-pure-white);
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: var(--color-coral-pulse);
   }
 
   .star-badge {
@@ -249,8 +250,9 @@
 
   .nav-cta {
     padding: 6px 12px;
-    font-size: 12px;
+    font-size: 11px;
     min-height: 32px;
+    border-radius: 0px;
   }
 
   @media (max-width: 860px) {

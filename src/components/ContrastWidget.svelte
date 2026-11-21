@@ -1,6 +1,6 @@
 <script lang="ts">
-  let fgColor = $state('#FFFFFF');
-  let bgColor = $state('#040506');
+  let fgColor = $state('#f0f0f0');
+  let bgColor = $state('#0b1623');
 
   function channelLuminance(val: number) {
     const c = val / 255;
@@ -18,7 +18,7 @@
       const b = parseInt(clean.slice(4, 6), 16) || 0;
       return [r, g, b];
     }
-    return [255, 255, 255];
+    return [240, 240, 240];
   }
 
   function getLuminance(rgb: [number, number, number]): number {
@@ -47,14 +47,14 @@
 
   let gaugeProgress = $derived(Math.min(1, Math.max(0, (ratio - 1) / 20)));
   let dashOffset = $derived(263.89 * (1 - gaugeProgress));
-  let gaugeColor = $derived(ratio >= 7.0 ? '#4ade80' : ratio >= 4.5 ? '#ff6363' : '#ff5f56');
+  let gaugeColor = $derived(ratio >= 7.0 ? '#00ff9d' : ratio >= 4.5 ? '#ff9f30' : '#f87171');
 
   const presets = [
-    { name: 'White on Void', fg: '#FFFFFF', bg: '#040506' },
-    { name: 'Ash on Void', fg: '#9C9C9D', bg: '#040506' },
-    { name: 'Mist on Ink', fg: '#E6E6E6', bg: '#07080A' },
-    { name: 'Coral on Void', fg: '#FF6363', bg: '#040506' },
-    { name: 'AI Slop (Low)', fg: '#54728C', bg: '#1A222B' },
+    { name: 'Blueprint Primary', fg: '#F0F0F0', bg: '#0B1623' },
+    { name: 'Dim Drafting Gray', fg: '#8B9BB4', bg: '#0B1623' },
+    { name: 'Amber CTA on Dark', fg: '#FF9F30', bg: '#0B1623' },
+    { name: 'Cyan Accent on Recessed', fg: '#00FF9D', bg: '#07101A' },
+    { name: 'Grid Line Check', fg: '#1C2B3A', bg: '#0B1623' },
   ];
 
   function applyPreset(p: { fg: string; bg: string }) {
@@ -320,7 +320,7 @@
     width: 36px;
     height: 36px;
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-inputs);
+    border-radius: 0px;
     background: none;
     cursor: pointer;
     padding: 0;
@@ -333,13 +333,14 @@
 
   .color-swatch-input::-webkit-color-swatch {
     border: none;
-    border-radius: 6px;
+    border-radius: 0px;
   }
 
   .text-input {
     flex-grow: 1;
     font-size: 13px;
     text-transform: uppercase;
+    border-radius: 0px;
     min-width: 0;
   }
 
@@ -348,7 +349,7 @@
     flex-direction: column;
     gap: 8px;
     padding-top: 10px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid var(--color-border);
   }
 
   .presets-label {
@@ -367,16 +368,17 @@
     background-color: var(--color-obsidian);
     color: var(--color-ash);
     border: 1px solid var(--color-border);
-    border-radius: 6px;
+    border-radius: 0px;
     padding: 4px 8px;
+    font-family: var(--font-mono);
     font-size: 10.5px;
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: all 150ms ease;
   }
 
   .preset-btn:hover {
     color: var(--color-pure-white);
-    border-color: rgba(255, 255, 255, 0.25);
+    border-color: var(--color-coral-pulse);
   }
 
   /* Preview */
@@ -396,14 +398,14 @@
 
   .live-preview-box {
     padding: 16px 18px;
-    border-radius: var(--radius-cards);
+    border-radius: 0px;
     border: 1px solid var(--color-border);
     min-height: 120px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 6px;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: background-color 150ms ease, color 150ms ease;
     box-sizing: border-box;
     flex-grow: 1;
     min-width: 0;
@@ -417,7 +419,7 @@
 
   .preview-headline {
     font-size: clamp(15px, 3.2vw, 18px);
-    font-weight: 500;
+    font-weight: 700;
   }
 
   .preview-body {
@@ -430,7 +432,7 @@
   .gauge-card {
     background-color: var(--color-obsidian);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-cards);
+    border-radius: 0px;
     padding: 12px 16px;
     display: flex;
     flex-direction: column;
@@ -439,7 +441,6 @@
     gap: 8px;
     flex-shrink: 0;
     min-width: 130px;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
   }
 
   .gauge-svg-wrap {

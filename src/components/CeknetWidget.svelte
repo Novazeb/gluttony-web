@@ -180,30 +180,27 @@
 
 <style>
   .ceknet-widget {
-    background-color: rgba(9, 10, 13, 0.76);
-    backdrop-filter: blur(28px) saturate(190%);
-    -webkit-backdrop-filter: blur(28px) saturate(190%);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 14px;
+    background-color: var(--color-ink);
+    border: 1px solid var(--color-border);
+    border-radius: 6px; /* Kotak dengan sudut tak tajam */
     padding: 10px 14px;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.75), rgba(255, 255, 255, 0.08) 0px 1px 0px 0px inset;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
     width: 216px;
     max-width: calc(100vw - 28px);
     box-sizing: border-box;
-    transition: border-color 0.22s var(--spring-smooth), transform 0.22s var(--spring-smooth), box-shadow 0.22s ease;
+    transition: border-color 150ms ease, transform 150ms ease;
   }
 
   .ceknet-widget:hover {
-    border-color: rgba(255, 255, 255, 0.25);
-    transform: translateY(-2px);
+    border-color: var(--color-coral-pulse);
+    transform: translateY(-1px);
   }
 
   .ceknet-widget:active {
-    transform: scale(0.985);
-    transition: transform 90ms var(--spring-press);
+    transform: translateY(1px);
   }
 
   .widget-header {
@@ -221,47 +218,46 @@
 
   .widget-title {
     font-size: 10.5px;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.6px;
     color: var(--color-pure-white);
   }
 
   .status-pulse {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
+    width: 6px;
+    height: 6px;
+    border-radius: 1px;
     flex-shrink: 0;
   }
 
   .status-pulse.checking {
     background-color: var(--color-ash);
-    box-shadow: 0 0 6px var(--color-ash);
-    animation: pulseAnim 1.4s ease-in-out infinite;
+    box-shadow: 0 0 4px var(--color-ash);
   }
 
   .status-pulse.excellent {
-    background-color: #4ade80;
-    box-shadow: 0 0 8px #4ade80;
+    background-color: #00ff9d;
+    box-shadow: 0 0 6px #00ff9d;
   }
 
   .status-pulse.good {
-    background-color: #60a5fa;
-    box-shadow: 0 0 8px #60a5fa;
+    background-color: #38bdf8;
+    box-shadow: 0 0 6px #38bdf8;
   }
 
   .status-pulse.fair {
-    background-color: #facc15;
-    box-shadow: 0 0 8px #facc15;
+    background-color: #ff9f30;
+    box-shadow: 0 0 6px #ff9f30;
   }
 
   .status-pulse.poor {
-    background-color: #fb923c;
-    box-shadow: 0 0 8px #fb923c;
+    background-color: #ff9f30;
+    box-shadow: 0 0 6px #ff9f30;
   }
 
   .status-pulse.offline {
     background-color: #f87171;
-    box-shadow: 0 0 8px #f87171;
+    box-shadow: 0 0 6px #f87171;
   }
 
   @keyframes pulseAnim {
@@ -274,38 +270,38 @@
     font-weight: 600;
     letter-spacing: 0.3px;
     padding: 1px 6px;
-    border-radius: 4px;
+    border-radius: 2px;
     border: 1px solid transparent;
   }
 
   .quality-badge.checking {
     color: var(--color-ash);
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.08);
+    background: rgba(28, 43, 58, 0.4);
+    border-color: var(--color-border);
   }
 
   .quality-badge.excellent {
-    color: #4ade80;
-    background: rgba(74, 222, 128, 0.1);
-    border-color: rgba(74, 222, 128, 0.25);
+    color: #00ff9d;
+    background: rgba(0, 255, 157, 0.1);
+    border-color: rgba(0, 255, 157, 0.3);
   }
 
   .quality-badge.good {
-    color: #60a5fa;
-    background: rgba(96, 165, 250, 0.1);
-    border-color: rgba(96, 165, 250, 0.25);
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.1);
+    border-color: rgba(56, 189, 248, 0.3);
   }
 
   .quality-badge.fair {
-    color: #facc15;
-    background: rgba(250, 204, 21, 0.1);
-    border-color: rgba(250, 204, 21, 0.25);
+    color: #ff9f30;
+    background: rgba(255, 159, 48, 0.1);
+    border-color: rgba(255, 159, 48, 0.3);
   }
 
   .quality-badge.poor {
-    color: #fb923c;
-    background: rgba(251, 146, 60, 0.1);
-    border-color: rgba(251, 146, 60, 0.25);
+    color: #ff9f30;
+    background: rgba(255, 159, 48, 0.15);
+    border-color: rgba(255, 159, 48, 0.35);
   }
 
   .quality-badge.offline {
@@ -319,8 +315,8 @@
     align-items: center;
     justify-content: space-between;
     background: var(--color-obsidian);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 6px;
+    border: 1px solid var(--color-border);
+    border-radius: 2px;
     padding: 6px 10px;
   }
 
@@ -345,7 +341,7 @@
   .metric-divider {
     width: 1px;
     height: 22px;
-    background: rgba(255, 255, 255, 0.07);
+    background: var(--color-border);
   }
 
   .network-type-strip {
@@ -380,28 +376,27 @@
     gap: 4px;
     padding: 5px 8px;
     font-size: 10px;
-    border-radius: 6px;
+    border-radius: 2px;
     text-decoration: none;
     cursor: pointer;
     min-height: 28px;
-    transition: all 0.18s ease;
+    transition: all 150ms ease;
   }
 
   .action-btn:active {
-    transform: scale(0.96);
-    transition: transform 90ms var(--spring-press);
+    transform: translateY(1px);
   }
 
   .recheck-btn {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--color-obsidian);
     color: var(--color-ash);
     border: 1px solid var(--color-border);
   }
 
   .recheck-btn:hover:not(:disabled) {
     color: var(--color-pure-white);
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.22);
+    border-color: var(--color-coral-pulse);
+    background: rgba(28, 43, 58, 0.5);
   }
 
   .recheck-btn:disabled {
@@ -410,16 +405,16 @@
   }
 
   .portal-btn {
-    background: rgba(255, 99, 99, 0.08);
+    background: rgba(255, 159, 48, 0.12);
     color: var(--color-coral-pulse);
-    border: 1px solid rgba(255, 99, 99, 0.28);
+    border: 1px solid rgba(255, 159, 48, 0.4);
     font-weight: 600;
   }
 
   .portal-btn:hover {
-    background: rgba(255, 99, 99, 0.16);
-    border-color: rgba(255, 99, 99, 0.45);
-    color: #ff8b8b;
+    background: var(--color-coral-pulse);
+    border-color: var(--color-coral-pulse);
+    color: #0b1623;
   }
 
   .icon-refresh.spinning {
